@@ -1,0 +1,36 @@
+<template name="CreateLeague">
+
+    <!-- Button trigger modal -->
+  <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#createLeagueBtn">
+  Create league
+  </button>
+
+  <!-- Modal -->
+  <div class="modal fade" id="createLeagueBtn" tabindex="-1" role="dialog" aria-labelledby="createLeague">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title" id="createLeagueLabel">Create a new league</h4>
+        </div>
+        <div class="modal-body">
+          <form id="createLeagueForm" action="">
+            <label for="newLeagueName">League name: </label>
+            <input type="text" id="newLeagueName" name="newLeagueName" placeholder="Give your league a name">
+            <label for="newLeagueStart">Pick a start date</label>
+            {{> Gameweeks}}
+          </form>
+          {{#if newLeagueCreated}}
+            {{> LeagueCodeGen}}
+          {{/if}}
+        </div>
+        <div class="modal-footer">
+          <button type="button" id="closeCreateLeagueButton" class="btn btn-default" data-dismiss="modal">Close</button>
+          <button type="button" id="createLeagueButton" class="btn btn-primary">Create league</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+</template>

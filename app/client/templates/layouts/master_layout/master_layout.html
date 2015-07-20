@@ -1,0 +1,11 @@
+<template name="MasterLayout">
+  <ul>
+    {{#if currentUser}}
+      <button type="button" class="btn btn-primary btn-lg">Logout</button>
+
+      {{> CreateLeague}}
+      {{> JoinLeague}}
+    {{/if}}
+</ul>
+  {{> yield}}
+</template>
