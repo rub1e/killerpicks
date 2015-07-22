@@ -10,6 +10,10 @@ Template.LeaguesView.events({
 /* LeaguesView: Helpers */
 /*****************************************************************************/
 Template.LeaguesView.helpers({
+  "playerLeagues" : function(){
+    return Meteor.call("playerLeaguesArray");
+
+  }
 });
 
 /*****************************************************************************/
