@@ -13,8 +13,12 @@ Template.LeagueCodeGen.helpers({
       return Leagues.findOne({_id : Session.get("uniqueLeagueCode")}).leagueName;
     }
   },
-  "uniqueLeagueCode" : Session.get("uniqueLeagueCode"),
-  "confirmedLeagueStartWeek" : Leagues.findOne({_id : Session.get("uniqueLeagueCode")}).starting,
+  "uniqueLeagueCode" : function(){
+    return Session.get("uniqueLeagueCode");
+  },
+  "confirmedLeagueStartWeek" : function(){
+    return Leagues.findOne({_id : Session.get("uniqueLeagueCode")}).starting;
+  },
   "newLeagueCreated" : function(){
     return Session.get("uniqueLeagueCode") !== undefined;
   }

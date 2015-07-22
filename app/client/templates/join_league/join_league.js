@@ -2,6 +2,11 @@
 /* JoinLeague: Event Handlers */
 /*****************************************************************************/
 Template.JoinLeague.events({
+  "click #joinLeagueButton" : function(){
+    Meteor.call("enterLeague", $("input[name=enterLeagueForm]").val(), function(err, res){
+      console.log("res:", res);
+    });
+  }
 });
 
 /*****************************************************************************/

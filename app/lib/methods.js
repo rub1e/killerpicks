@@ -10,6 +10,27 @@ Meteor.methods({
       starting: new Date(week),
       status: "pending"
     });
+  },
+
+  "enterLeague" : function(code){
+    var entry = Leagues.find({_id : code}).fetch()[0];
+    var players;
+
+    if(entry) {
+      players = entry.players;
+
+      for(var i = 0; i < players.length; i += 1) {
+        if (players[i].playerId === this.userId) {
+          return "already in league";
+        }
+      }
+
+      return Leagues.update({_id : code}, {$push:{
+        players : {playerId : this.userId, livesLeft : 3, choices : []}
+      }}, function(err, res){
+        return "added";
+      });
+    } else {return "no league";}
   }
 });
 

@@ -20,9 +20,8 @@
             <label for="newLeagueStart">Pick a start date</label>
             {{> Gameweeks}}
           </form>
-          {{#if newLeagueCreated}}
-            {{> LeagueCodeGen}}
-          {{/if}}
+          {{> LeagueCodeGen}}
+
         </div>
         <div class="modal-footer">
           <button type="button" id="closeCreateLeagueButton" class="btn btn-default" data-dismiss="modal">Close</button>

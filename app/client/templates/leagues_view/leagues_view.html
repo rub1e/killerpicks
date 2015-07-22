@@ -1,22 +1,24 @@
 
 <template name="LeaguesView">
-  <table>
-    <tr>
-      <th>League Name</th>
-      <th>Lives left</th>
-      <th>Round</th>
-      <th>Players remaining</th>
-      <th>Your remaining picks</th>
-    </tr>
-    <tr>
-      <td>{{leagueName}}</td>
-      <td>{{livesLeft}}</td>
-      <td>{{round}}</td>
-      <td>{{playersLeft.length}} / {{playersStarted.length}}</td>
-      <td>{{> TeamsLeftDropDown}}</td>
-    </tr>
+  <div class="table-responsive">
+    <table class="table table-hover">
+      <tr>
+        <th>League Name</th>
+        <th>Lives left</th>
+        <th>Round</th>
+        <th>Players remaining</th>
+        <th>Your remaining picks</th>
+      </tr>
+      <tr>
+        <td>{{leagueName}}</td>
+        <td>{{livesLeft}}</td>
+        <td>{{round}}</td>
+        <td>{{playersLeft.length}} / {{playersStarted.length}}</td>
+        <td>{{> TeamsLeftDropDown}}</td>
+      </tr>
 
-  </table>
+    </table>
+  </div>
 </template>
 
 
