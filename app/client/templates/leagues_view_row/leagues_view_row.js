@@ -1,34 +1,41 @@
 /*****************************************************************************/
-/* TeamsLeftDropDown: Event Handlers */
+/* LeaguesViewRow: Event Handlers */
 /*****************************************************************************/
-Template.TeamsLeftDropDown.events({
+
+Template.LeaguesViewRow.events({
 });
 
 /*****************************************************************************/
-/* TeamsLeftDropDown: Helpers */
+/* LeaguesViewRow: Helpers */
 /*****************************************************************************/
-Template.TeamsLeftDropDown.helpers({
-
-  "teamsLeft": function(){
+Template.LeaguesViewRow.helpers({
+  "livesLeft" : function(){
     var player = $.grep(this.players, function(e){
       return e.playerId === Meteor.userId();
     })[0];
+    return player.livesLeft;
+  },
 
-    return pLTeams.filter(function(a){
-      return player.choices.indexOf(a) < 0;
-    })
+  "playersLeft" : function(){
+    return $.grep(this.players, function(e){
+      return e.livesLeft > 0;
+    }).length;
+  },
+
+  "playersStarted" : function(){
+    return this.players.length;
   }
 
 });
 
 /*****************************************************************************/
-/* TeamsLeftDropDown: Lifecycle Hooks */
+/* LeaguesViewRow: Lifecycle Hooks */
 /*****************************************************************************/
-Template.TeamsLeftDropDown.created = function () {
+Template.LeaguesViewRow.created = function () {
 };
 
-Template.TeamsLeftDropDown.rendered = function () {
+Template.LeaguesViewRow.rendered = function () {
 };
 
-Template.TeamsLeftDropDown.destroyed = function () {
+Template.LeaguesViewRow.destroyed = function () {
 };

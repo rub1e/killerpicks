@@ -56,7 +56,7 @@ Meteor.methods({
 
     var objArr = Leagues.find({_id : {$in : userLeagues}}).fetch();
     console.log("objArr", objArr);
-    return objArr
+    return objArr;
   }
 });
 

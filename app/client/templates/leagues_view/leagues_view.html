@@ -9,30 +9,9 @@
         <th>Players remaining</th>
         <th>Your remaining picks</th>
       </tr>
-      {{# each playerLeagues}}
+      {{#each playerLeagues}}
         {{> LeaguesViewRow}}
       {{/each}}
     </table>
   </div>
 </template>
-
-
-<!-- <template name="leaguesList">
-  <ul>
-    <li>{{leagueName}}
-      <ul>
-        <li>{{livesLeft}}</li>
-        <li>{{round}}</li>
-        <li>{{playersLeft.length}} / {{playersStarted.length}}</li>
-        <li>Teams Remaining:
-          <select>
-            {{#each teamsLeft}}
-              {{> teamsLeft}}
-            {{/each}}
-          </select>
-          <input type="button" value="submit">
-        </li>
-      </ul>
-    </li>
-  </ul>
-</template> -->
