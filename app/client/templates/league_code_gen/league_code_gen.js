@@ -17,10 +17,18 @@ Template.LeagueCodeGen.helpers({
     return Session.get("uniqueLeagueCode");
   },
   "confirmedLeagueStartWeek" : function(){
-    return Leagues.findOne({_id : Session.get("uniqueLeagueCode")}).starting;
+    if(Session.get("uniqueLeagueCode") !== undefined) {
+      return Leagues.findOne({_id : Session.get("uniqueLeagueCode")}).starting;
+    }
   },
   "newLeagueCreated" : function(){
     return Session.get("uniqueLeagueCode") !== undefined;
+  },
+
+  "confirmedEntryFee" : function(){
+    if(Session.get("uniqueLeagueCode") !== undefined) {
+      return Leagues.findOne({_id : Session.get("uniqueLeagueCode")}).payment;
+    }
   }
 });
 

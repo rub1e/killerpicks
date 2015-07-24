@@ -32,7 +32,7 @@ Template.LeaguesViewRow.helpers({
       return e.playerId === Meteor.userId();
     })[0];
     if(this.round === player.choices.length){
-      return choices[choices.length -1];
+      return player.choices[player.choices.length -1];
     } else {
       return "Pick";
     }

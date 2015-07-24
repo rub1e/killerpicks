@@ -14,18 +14,16 @@
           <h4 class="modal-title" id="createLeagueLabel">Create a new league</h4>
         </div>
         <div class="modal-body">
-          <form id="createLeagueForm" action="">
-            <label for="newLeagueName">League name: </label>
-            <input type="text" id="newLeagueName" name="newLeagueName" placeholder="Give your league a name">
-            <label for="weeksDropDown">Pick a start date</label>
-            {{> Gameweeks}}
-          </form>
-          {{> LeagueCodeGen}}
-
+          {{> CreateLeagueForm}}
         </div>
+
+        {{> LeagueCodeGen}}
+
         <div class="modal-footer">
           <button type="button" id="closeCreateLeagueButton" class="btn btn-default" data-dismiss="modal">Close</button>
-          <button type="button" id="createLeagueButton" class="btn btn-primary">Create league</button>
+          {{#if noNewLeague}}
+            <button type="button" id="createLeagueButton" class="btn btn-primary">Create league</button>
+          {{/if}}
         </div>
       </div>
     </div>

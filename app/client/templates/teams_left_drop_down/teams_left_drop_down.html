@@ -1,6 +1,6 @@
 <template name="TeamsLeftDropDown">
   <select class="teamsLeftDropDown" name="">
-    <option value="" disabled selected>Pick this week's team</option>
+    <option disabled selected="true">Pick this week's team</option>
     {{#each teamsLeft}}
       <option value={{.}}>{{.}}</option>
     {{/each}}
