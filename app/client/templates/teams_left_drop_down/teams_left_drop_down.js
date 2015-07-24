@@ -2,6 +2,21 @@
 /* TeamsLeftDropDown: Event Handlers */
 /*****************************************************************************/
 Template.TeamsLeftDropDown.events({
+  "click input[name=quickChoiceButton]" : function(e){
+    var chosenTeam = $(e.currentTarget).siblings(".teamsLeftDropDown").val();
+    var player = $.grep(this.players, function(e){
+      return e.playerId === Meteor.userId();
+    })[0];
+    if(chosenTeam && player.choices.indexOf(chosenTeam) < 0) {
+      console.log("sending team ID", chosenTeam, this._id);
+      Meteor.call("makeChoice", chosenTeam, this._id, function(err, res){
+        Meteor.call("playerLeaguesArray", function(error, result){
+          Session.set("leagues", result);
+        });
+
+      });
+    }
+  }
 });
 
 /*****************************************************************************/
@@ -16,7 +31,7 @@ Template.TeamsLeftDropDown.helpers({
 
     return pLTeams.filter(function(a){
       return player.choices.indexOf(a) < 0;
-    })
+    });
   }
 
 });

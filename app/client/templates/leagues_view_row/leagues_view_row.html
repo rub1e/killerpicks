@@ -1,8 +1,9 @@
 <template name="LeaguesViewRow">
-  <tr>
-    <td>a{{leagueName}}</td>
-    <td>a{{livesLeft}}</td>
-    <td>a{{round}}</td>
+  <tr class="leagueTableRow">
+    <td>{{leagueName}}</td>
+    <td>{{weekPick}}</td>
+    <td>{{livesLeft}}</td>
+    <td>{{round}}</td>
     <td>{{playersLeft}} / {{playersStarted}}</td>
     <td>{{> TeamsLeftDropDown}}</td>
   </tr>

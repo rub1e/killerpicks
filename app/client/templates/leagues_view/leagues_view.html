@@ -2,16 +2,21 @@
 <template name="LeaguesView">
   <div class="table-responsive">
     <table class="table table-hover">
-      <tr>
-        <th>League Name</th>
-        <th>Lives left</th>
-        <th>Round</th>
-        <th>Players remaining</th>
-        <th>Your remaining picks</th>
-      </tr>
-      {{#each playerLeagues}}
-        {{> LeaguesViewRow}}
-      {{/each}}
+      <thead>
+        <tr>
+          <th>League Name</th>
+          <th>This week's pick</th>
+          <th>Lives left</th>
+          <th>Round</th>
+          <th>Players remaining</th>
+          <th>Your remaining picks</th>
+        </tr>
+      </thead>
+      <tbody>
+        {{#each playerLeagues}}
+          {{> LeaguesViewRow}}
+        {{/each}}
+      </tbody>
     </table>
   </div>
 </template>

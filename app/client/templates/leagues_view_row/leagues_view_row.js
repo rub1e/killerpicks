@@ -3,6 +3,7 @@
 /*****************************************************************************/
 
 Template.LeaguesViewRow.events({
+
 });
 
 /*****************************************************************************/
@@ -24,6 +25,17 @@ Template.LeaguesViewRow.helpers({
 
   "playersStarted" : function(){
     return this.players.length;
+  },
+
+  "weekPick" : function(){
+    var player = $.grep(this.players, function(e){
+      return e.playerId === Meteor.userId();
+    })[0];
+    if(this.round === player.choices.length){
+      return choices[choices.length -1];
+    } else {
+      return "Pick";
+    }
   }
 
 });

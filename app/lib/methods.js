@@ -2,16 +2,16 @@
 /* Client and Server Methods */
 /*****************************************************************************/
 Meteor.methods({
-  "createLeague" : function(name, week){
+  "createLeague" : function(name, week, finance){
     var user = Meteor.userId();
-
     return Leagues.insert({
       leagueName: name,
       players: [{playerId : user, livesLeft : 3, choices : []}],
       created: new Date(),
       starting: new Date(week),
       status: "pending",
-      round: 0
+      round: 0,
+      payment : finance
     }, function(err, res){
       if(!err){
         Meteor.users.update({_id : user}, {$push : {
@@ -52,12 +52,17 @@ Meteor.methods({
   "playerLeaguesArray" : function(){
     var user = Meteor.userId();
     var userLeagues = Meteor.users.find({_id:user}).fetch()[0].profile.leaguesMemberOf;
-    console.log("userLeagues", userLeagues);
-
     var objArr = Leagues.find({_id : {$in : userLeagues}}).fetch();
-    console.log("objArr", objArr);
     return objArr;
+  },
+
+  "makeChoice" : function(team, leagueId){
+    var user = Meteor.userId();
+    Leagues.update({_id : leagueId, "players.playerId" : user}, {$push:{
+       "players.$.choices" : team
+    }});
   }
+
 });
 
 
