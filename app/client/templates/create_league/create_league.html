@@ -19,13 +19,17 @@
             <input type="text" id="newLeagueName" name="newLeagueName" placeholder="Give your league a name">
             <label for="weeksDropDown">Pick a start date</label>
             {{> Gameweeks}}
+            <br>
+            <span>If you would like to have a prize pool, set the fee below. Otherwise leave it blank. For more information about fees and prize pools, click here</span>
+            <br>
+            <label for="newLeagueFee">League entry fee: £</label>
+            <input type="number" name="newLeagueFee" placeholder="Enter a digit">
           </form>
           {{> LeagueCodeGen}}
 
         </div>
         <div class="modal-footer">
-          <button type="button" id="closeCreateLeagueButton" class="btn btn-default" data-dismiss="modal">Close</button>
-          <button type="button" id="createLeagueButton" class="btn btn-primary">Create league</button>
+          {{> CreateLeagueButtons}}
         </div>
       </div>
     </div>
