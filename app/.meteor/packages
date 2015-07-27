@@ -9,3 +9,4 @@ iron:router
 accounts-password
 accounts-ui
 twbs:bootstrap
+reactive-var

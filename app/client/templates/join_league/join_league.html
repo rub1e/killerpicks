@@ -12,18 +12,21 @@
           <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
           <h4 class="modal-title" id="joinLeagueLabel">Join a league</h4>
         </div>
-        <div class="modal-body">
-          <form id="enterLeagueForm" action="index.html" method="post">
-            <label for="enterLeagueCode">Paste the code you've been sent: </label>
-            <input type="text" name="enterLeagueForm" placeholder="Code goes here">
-          </form>
-        </div>
-        <div id="leagueEntrySuccess">
-          <span>Congratulations! You've successfully entered "{{leagueName}}"</span>
-        </div>
+        {{#unless leagueJustJoined}}
+          <div class="modal-body">
+            <form id="enterLeagueForm" action="index.html" method="post">
+              <label for="enterLeagueCode">Paste the code you've been sent: </label>
+              <input type="text" name="enterLeagueForm" placeholder="Code goes here">
+            </form>
+          </div>
+        {{else}}
+          {{> LeagueEntrySuccess}}
+        {{/unless}}
         <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-          <button type="button" id="joinLeagueButton" class="btn btn-primary">Join league</button>
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          {{#unless leagueJustJoined}}
+            <button type="button" id="joinLeagueButton" class="btn btn-primary">Join league</button>
+          {{/unless}}
         </div>
       </div>
     </div>
