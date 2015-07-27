@@ -43,7 +43,11 @@ Meteor.methods({
         return Meteor.users.update({_id : user}, {$push : {
            "profile.leaguesMemberOf" : code
         }}, function(err, res){
-          console.log("error", err);
+          if(entry.round === 0){
+            Leagues.update({_id : code}, {$set:{
+              round : 1
+            }});
+          }
         });
       });
     } else {return "no league";}

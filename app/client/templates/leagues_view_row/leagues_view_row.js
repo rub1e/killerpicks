@@ -31,7 +31,7 @@ Template.LeaguesViewRow.helpers({
     var player = $.grep(this.players, function(e){
       return e.playerId === Meteor.userId();
     })[0];
-    if(this.round === player.choices.length){
+    if(player.choices.length && this.round === player.choices.length){
       return player.choices[player.choices.length -1];
     } else {
       return "Pick";

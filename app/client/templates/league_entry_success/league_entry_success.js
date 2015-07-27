@@ -1,27 +1,26 @@
 /*****************************************************************************/
-/* CreateLeagueButtons: Event Handlers */
+/* LeagueEntrySuccess: Event Handlers */
 /*****************************************************************************/
-Template.CreateLeagueButtons.events({
-    
+Template.LeagueEntrySuccess.events({
 });
 
 /*****************************************************************************/
-/* CreateLeagueButtons: Helpers */
+/* LeagueEntrySuccess: Helpers */
 /*****************************************************************************/
-Template.CreateLeagueButtons.helpers({
-  "noNewLeague" : function(){
-    return Session.get("uniqueLeagueCode") === undefined;
+Template.LeagueEntrySuccess.helpers({
+  "leagueName" : function(){
+    return Leagues.findOne({_id : Session.get("leagueJustJoined")}).leagueName;
   }
 });
 
 /*****************************************************************************/
-/* CreateLeagueButtons: Lifecycle Hooks */
+/* LeagueEntrySuccess: Lifecycle Hooks */
 /*****************************************************************************/
-Template.CreateLeagueButtons.created = function () {
+Template.LeagueEntrySuccess.created = function () {
 };
 
-Template.CreateLeagueButtons.rendered = function () {
+Template.LeagueEntrySuccess.rendered = function () {
 };
 
-Template.CreateLeagueButtons.destroyed = function () {
+Template.LeagueEntrySuccess.destroyed = function () {
 };

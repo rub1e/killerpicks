@@ -1,27 +1,23 @@
 /*****************************************************************************/
-/* CreateLeagueButtons: Event Handlers */
+/* CreateLeagueForm: Event Handlers */
 /*****************************************************************************/
-Template.CreateLeagueButtons.events({
-    
+Template.CreateLeagueForm.events({
 });
 
 /*****************************************************************************/
-/* CreateLeagueButtons: Helpers */
+/* CreateLeagueForm: Helpers */
 /*****************************************************************************/
-Template.CreateLeagueButtons.helpers({
-  "noNewLeague" : function(){
-    return Session.get("uniqueLeagueCode") === undefined;
-  }
+Template.CreateLeagueForm.helpers({
 });
 
 /*****************************************************************************/
-/* CreateLeagueButtons: Lifecycle Hooks */
+/* CreateLeagueForm: Lifecycle Hooks */
 /*****************************************************************************/
-Template.CreateLeagueButtons.created = function () {
+Template.CreateLeagueForm.created = function () {
 };
 
-Template.CreateLeagueButtons.rendered = function () {
+Template.CreateLeagueForm.rendered = function () {
 };
 
-Template.CreateLeagueButtons.destroyed = function () {
+Template.CreateLeagueForm.destroyed = function () {
 };

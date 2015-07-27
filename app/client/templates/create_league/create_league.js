@@ -25,7 +25,7 @@ Template.CreateLeague.events({
     }
   },
 
-  "hidden.bs.modal #createLeagueBtn" : function(e){
+  "show.bs.modal #createLeagueBtn" : function(e){
     Session.set("uniqueLeagueCode", undefined);
   }
 
