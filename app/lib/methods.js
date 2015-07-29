@@ -60,8 +60,7 @@ Meteor.methods({
     return objArr;
   },
 
-  "makeChoice" : function(team, leagueId){
-    var user = Meteor.userId();
+  "makeChoice" : function(team, leagueId, user){
     Leagues.update({_id : leagueId, "players.playerId" : user}, {$push:{
        "players.$.choices" : team
     }});
