@@ -9,7 +9,7 @@ Template.TeamsLeftDropDown.events({
     })[0];
     if(chosenTeam && player.choices.indexOf(chosenTeam) < 0) {
       console.log("sending team ID", chosenTeam, this._id);
-      Meteor.call("makeChoice", chosenTeam, this._id, function(err, res){
+      Meteor.call("makeChoice", chosenTeam, this._id, Meteor.userId(), function(err, res){
         Meteor.call("playerLeaguesArray", function(error, result){
           Session.set("leagues", result);
         });
