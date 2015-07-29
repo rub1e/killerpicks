@@ -6,12 +6,13 @@ Meteor.methods({
     var user = Meteor.userId();
     return Leagues.insert({
       leagueName: name,
-      players: [{playerId : user, livesLeft : 3, choices : []}],
       created: new Date(),
       starting: new Date(week),
       status: "pending",
       round: 0,
-      payment : finance
+      payment : finance,
+      players: [{playerId : user, livesLeft : 3, roundDied : 0, choices : []}],
+      winners : []
     }, function(err, res){
       if(!err){
         Meteor.users.update({_id : user}, {$push : {
@@ -38,7 +39,7 @@ Meteor.methods({
       }
 
       return Leagues.update({_id : code}, {$push:{
-        players : {playerId : user, livesLeft : 3, choices : []}
+        players : {playerId : user, livesLeft : 3, roundDied : 0, choices : []}
       }}, function(err, res){
         return Meteor.users.update({_id : user}, {$push : {
            "profile.leaguesMemberOf" : code
