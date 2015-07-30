@@ -64,7 +64,58 @@ Houston.methods("leagues", {
         }
       }
     }
+  },
 
+  "checkForDead" : function(){
+    var allPlayingLeagues = Leagues.find({status : "active", round : {$gt : 0}}, {fields : {players : 1, round : 1}}).fetch();
+    var allPlayingLeaguesLength = allPlayingLeagues.length;
+
+    for(var i = 0; i < allPlayingLeaguesLength; i += 1) {
+      var league = allPlayingLeagues[i];
+      var round = league.round;
+      for(var j = 0; j < league.players.length; j += 1) {
+        var player = league.players[j];
+        var livesLeft = player.livesLeft;
+        if(livesLeft < 1) {
+          Leagues.update({_id : league._id, "players.playerId" : player.playerId}, {$set: {
+            "players.$.roundDied" : round
+          }});
+        }
+      }
+    }
+  },
+
+  "checkForSingleChamps" : function(){
+    var allAliveLeagues = Leagues.find({status : "active", round : {$gt : 0}, "players.roundDied" : 0}, {fields : {players : 1, round : 1}}).fetch();
+    var allAliveLeaguesLength = allAliveLeagues.length;
+
+    for(var i = 0; i < allAliveLeaguesLength; i += 1) {
+      var league = allAliveLeagues[i];
+      var alivePlayersArray = league.players.filter(function(a){
+        return a.roundDied === 0;
+      });
+      if(alivePlayersArray.length === 1) {
+        Meteor.call("declareSingleWinner", league._id, alivePlayersArray[0].playerId);
+      }
+    }
+  },
+
+  "checkforManyChamps" : function(){
+    var allLeaguesWithDead = Leagues.find({status : "active", round : {$gt : 0}, "players.roundDied" : {$gt : 0}}, {fields : {players : 1, round : 1}}).fetch();
+    var allLeaguesWithDeadLength = allLeaguesWithDead.length;
+
+    for(var i = 0; i < allLeaguesWithDeadLength; i += 1){
+      var league = allLeaguesWithDead[i];
+      var alivePlayersArray = league.players.filter(function(a){
+        return a.roundDied === 0;
+      });
+      if(alivePlayersArray.length === 0) {
+        var multiWinners = league.players.filter(function(a){
+          return a.roundDied === league.round;
+        });
+        Meteor.call("declareManyWinners", league._id, multiWinners);
+      }
+    }
   }
 
 });
