@@ -5,10 +5,10 @@ Template.NewUserRegister.events({
 
   'submit form': function(event){
     event.preventDefault();
-    var email = $('[name=regEmail]').val();
-    var password = $('[name=regPassword]').val();
-    var fullName = $('[name=fullName]').val();
-    var username = $('[name=regUsername]').val();
+    var email = $('input[name=regEmail]').val();
+    var password = $('input[name=regPassword]').val();
+    var fullName = $('input[name=fullName]').val();
+    var username = $('input[name=regUsername]').val();
     Accounts.createUser({
         email: email,
         password: password,
