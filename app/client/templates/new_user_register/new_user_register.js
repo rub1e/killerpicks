@@ -18,6 +18,10 @@ Template.NewUserRegister.events({
           fullName: fullName,
           leaguesMemberOf: []
         }
+    }, function(error){
+      if(error){
+        alert(error.reason);
+      }
     });
   }
 
