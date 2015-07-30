@@ -65,7 +65,15 @@ Meteor.methods({
     Leagues.update({_id : leagueId, "players.playerId" : user}, {$push:{
        "players.$.choices" : team
     }});
-  }
+  },
+
+  "declareSingleWinner" : function(league, player){
+    console.log("league ", league, "player ", player);
+  },
+
+  "declareManyWinners" : function(league, playersArray){
+    console.log("league ", league, "players ", playersArray);
+  },
 
 });
 
