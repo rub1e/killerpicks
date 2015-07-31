@@ -116,6 +116,10 @@ Houston.methods("leagues", {
         Meteor.call("declareManyWinners", league._id, multiWinners);
       }
     }
+  },
+
+  "toggleserver" : function(){
+    // do something
   }
 
 });

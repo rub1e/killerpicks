@@ -1,6 +1,7 @@
 /*****************************************************************************/
 /* Client and Server Methods */
 /*****************************************************************************/
+
 Meteor.methods({
   "createLeague" : function(name, week, finance){
     var user = Meteor.userId();
@@ -67,14 +68,27 @@ Meteor.methods({
     }});
   },
 
-  "declareSingleWinner" : function(league, player){
-    console.log("league ", league, "player ", player);
+  "declareSingleWinner" : function(league, playerId){
+    console.log("league ", league, "player ", playerId);
+    Leagues.update({_id : league}, {$push: {
+      winners : playerId
+    }});
+    Leagues.update({_id : league}, {$set : {
+      status : "ended"
+    }});
   },
 
   "declareManyWinners" : function(league, playersArray){
     console.log("league ", league, "players ", playersArray);
+    for(var i = 0; i < playersArray.length; i += 1){
+      Leagues.update({_id : league}, {$push: {
+        winners : playersArray[i].playerId
+      }});
+    }
+    Leagues.update({_id : league}, {$set : {
+      status : "ended"
+    }});
   },
-
 });
 
 

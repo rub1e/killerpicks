@@ -1,13 +1,21 @@
 /*****************************************************************************/
 /* LoginUser: Event Handlers */
 /*****************************************************************************/
+
+Accounts.config({
+  forbidClientAccountCreation : true
+});
+
+
 Template.LoginUser.events({
 
   'submit form': function(event){
     event.preventDefault();
     var email = $('input[name=logEmail]').val();
     var password = $('input[name=logPassword]').val();
-    Meteor.loginWithPassword(email, password);
+    Meteor.loginWithPassword(email, password, function(error){
+      console.log(error);
+    });
   }
 
 });
