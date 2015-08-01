@@ -1,32 +1,23 @@
 /*****************************************************************************/
-/* Gameweeks: Event Handlers */
+/* NoPermission: Event Handlers */
 /*****************************************************************************/
-Template.Gameweeks.events({
-
+Template.NoPermission.events({
 });
 
 /*****************************************************************************/
-/* Gameweeks: Helpers */
+/* NoPermission: Helpers */
 /*****************************************************************************/
-Template.Gameweeks.helpers({
-  "weeksList" : function(){
-    var weeksAfterNow = pLGameweeks.filter(function(a){
-      return new Date(a) > Date.now();
-    });
-
-    return weeksAfterNow;
-  }
-
+Template.NoPermission.helpers({
 });
 
 /*****************************************************************************/
-/* Gameweeks: Lifecycle Hooks */
+/* NoPermission: Lifecycle Hooks */
 /*****************************************************************************/
-Template.Gameweeks.created = function () {
+Template.NoPermission.created = function () {
 };
 
-Template.Gameweeks.rendered = function () {
+Template.NoPermission.rendered = function () {
 };
 
-Template.Gameweeks.destroyed = function () {
+Template.NoPermission.destroyed = function () {
 };

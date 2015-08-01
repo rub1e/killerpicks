@@ -1,6 +1,8 @@
 Houston.add_collection(Meteor.users);
 Houston.add_collection(Houston._admins);
 Houston.add_collection(Leagues);
+Houston.add_collection(Reality);
+
 
 Houston.methods("leagues", {
 
@@ -11,7 +13,8 @@ Houston.methods("leagues", {
   },
 
   "decrementLives" : function(){
-    var latestWinners = winningTeams[winningTeams.length - 1].teams;
+    var latestWinners = Reality.findOne({gameWeek : currentGameweek()}, {fields : {winningTeams : 1, _id : 0}}).winningTeams;
+    console.log(latestWinners);
     var allActiveLeagues = Leagues.find({status : "active"}, {fields : {players : 1}}).fetch();
     var allActiveLeaguesLength = allActiveLeagues.length;
     var livesLostcount = 0;

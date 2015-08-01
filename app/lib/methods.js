@@ -89,6 +89,11 @@ Meteor.methods({
       status : "ended"
     }});
   },
+
+  "inputGames" : function(obj) {
+    Reality.insert(obj);
+  }
+
 });
 
 

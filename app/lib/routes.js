@@ -10,3 +10,11 @@ Router.route('/', {
   action: 'action',
   where: 'client'
 });
+
+Router.route('/reality', function () {
+  if(Roles.userIsInRole(Meteor.user(), "admin")) {
+    this.render('InputReality');
+  } else {
+    this.render("NoPermission");
+  }
+});
