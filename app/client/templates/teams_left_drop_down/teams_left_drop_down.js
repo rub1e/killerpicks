@@ -7,13 +7,12 @@ Template.TeamsLeftDropDown.events({
     var player = $.grep(this.players, function(e){
       return e.playerId === Meteor.userId();
     })[0];
-    if(chosenTeam && player.choices.indexOf(chosenTeam) < 0) {
+    if(chosenTeam !== "Pick this week's team" && player.choices.indexOf(chosenTeam) < 0) {
       console.log("sending team ID", chosenTeam, this._id);
-      Meteor.call("makeChoice", chosenTeam, this._id, Meteor.userId(), function(err, res){
+      Meteor.call("makeChoice", chosenTeam, this._id, function(err, res){
         Meteor.call("playerLeaguesArray", function(error, result){
           Session.set("leagues", result);
         });
-
       });
     }
   }
@@ -32,6 +31,28 @@ Template.TeamsLeftDropDown.helpers({
     return pLTeams.filter(function(a){
       return player.choices.indexOf(a) < 0;
     });
+  },
+
+  "disableSelect" : function(){
+    var player = $.grep(this.players, function(e){
+      return e.playerId === Meteor.userId();
+    })[0];
+    if(player.choices.length === this.round){
+      return "disabled";
+    } else {
+      return "";
+    }
+  },
+
+  "styleSelect" : function(){
+    var player = $.grep(this.players, function(e){
+      return e.playerId === Meteor.userId();
+    })[0];
+    if(player.choices.length === this.round){
+      return "background-color:grey";
+    } else {
+      return "";
+    }
   }
 
 });
