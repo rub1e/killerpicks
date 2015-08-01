@@ -44,3 +44,9 @@ pLGameweeks = ["2015-Aug-08",
 "2016-May-22",
 "2016-May-29",
 "2016-Jun-05"];
+
+currentGameweek = function(){
+  return pLGameweeks.filter(function(a){
+    return Date.parse(a) + 86300000 > Date.now();
+  })[0];
+};
