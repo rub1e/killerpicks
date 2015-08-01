@@ -1,0 +1,26 @@
+<template name="InputReality">
+
+  <form id="inputReality">
+    <div id="weeksDiv">
+      {{> Gameweeks}}
+    </div>
+    {{#each numberOfGames}}
+      <p>Game {{.}}</p>
+      <span>Home</span>
+      <select id="home{{.}}" class="home">
+        <option>Pick</option>
+        {{#each teams}}
+          <option value={{.}}>{{.}}</option>
+        {{/each}}
+      </select>
+      <span>Away</span>
+      <select id="away{{.}}" class="away">
+        <option>Pick</option>
+        {{#each teams}}
+          <option value={{.}}>{{.}}</option>
+        {{/each}}
+      </select>
+    {{/each}}
+    <input type="submit" name="some_name" value="Submit">
+  </form>
+</template>
