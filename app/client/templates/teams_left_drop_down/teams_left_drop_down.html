@@ -1,6 +1,6 @@
 <template name="TeamsLeftDropDown">
-  <select class="teamsLeftDropDown" name="">
-    <option disabled selected="true">Pick this week's team</option>
+  <select {{disableSelect}} style={{styleSelect}} class="teamsLeftDropDown" name="">
+    <option selected="true">Pick this week's team</option>
     {{#each teamsLeft}}
       <option value={{.}}>{{.}}</option>
     {{/each}}
