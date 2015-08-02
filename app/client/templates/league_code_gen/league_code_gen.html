@@ -1,23 +1,16 @@
 <template name="LeagueCodeGen">
   {{#if newLeagueCreated}}
     <div id="newLeagueEntryCode">
-      <span>Your league "{{confirmedLeagueName}}" has been successfully created!</span>
+      <p>Your league "{{confirmedLeagueName}}" has been successfully created!</p>
       <ul>
-        <li>Your first round will start on {{confirmedLeagueStartWeek}} at 11.40am (UK time).</li>
-        <li>{{confirmedEntryFee}}</li>
+        <li><b>Your first round of fixtures starts on {{confirmedLeagueStartWeek}},</b> so you must make your first pick before 11.40am (UK time) on that day, or you will get a random pick. But remember to invite your friends early so they have time to pick as well</li>
+        {{#if confirmedEntryFee}}
+          <li><b>You have set a league entry fee of £{{confirmedEntryFee}}.</b> For now, we take no responsibility for collecting/administering this, but players will have to confirm they will pay the league fee before joining (to avoid disagreements down the line!)</li>
+        {{/if}}
       </ul>
-      <span>You can invite your friends by sending them the code below, or click the link to open a pre-formatted email with all the details.</span>
-      <span>League entry code: {{uniqueLeagueCode}}</span>
-      <span>Click <a href="mailto:name1@mail.com,name2@mail.com?subject=You've%20been%20invited%20to%20play%20KillerPicks&amp;body=You've%20been%20invited%20by%20%7B%7BcurrentUserFullName%7D%7D%20to%20play%20KillerPicks%2C%20the%20free-to-play%20Premier%20League%20prediction%20game.%20%0A%0ATo%20join%2C%20visit%20www.xyz.com%20and%20enter%20your%20unique%20league%20entry%20code%3A%20%7B%7BuniqueEntryCode%7D%7D%0A">here</a> to email your friends</span>
-    </div>
-  {{else}}
-    <div id="newLeagueConfirmText">
-      <span>Your league will be created with as below</span>
-      <ul>
-        <li>League name: {{checkLeagueName}}</li>
-        <li>Start date: {{checkStartDate}}</li>
-        <li>Fee (per player): </li>
-      </ul>
+      <br>
+      <p>You can invite your friends by sending them the code below (we'll have a form where you can send an automatic email to them soon).</p>
+      <p><b>League entry code:</b> {{uniqueLeagueCode}}</p>
     </div>
   {{/if}}
 </template>

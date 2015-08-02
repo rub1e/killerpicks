@@ -5,12 +5,15 @@
 Meteor.methods({
   "createLeague" : function(name, week, finance){
     var user = Meteor.userId();
+    if(finance === ""){
+      finance = 0;
+    }
     return Leagues.insert({
       leagueName: name,
       created: new Date(),
       starting: new Date(week),
       status: "pending",
-      round: 0,
+      round: 1  ,
       payment : finance,
       players: [{playerId : user, livesLeft : 3, roundDied : 0, choices : []}],
       winners : []
@@ -26,7 +29,7 @@ Meteor.methods({
   },
 
   "enterLeague" : function(code){
-    var entry = Leagues.find({_id : code}).fetch()[0];
+    var entry = Leagues.findOne({_id : code});
     var user = Meteor.userId();
     var players;
 

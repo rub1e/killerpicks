@@ -16,6 +16,9 @@
         <div class="modal-body">
           {{#if noNewLeague}}
             {{> CreateLeagueForm}}
+            <div>
+              <ul id="errorMessage" style="color:red"></ul>
+            </div>
           {{else}}
             {{> LeagueCodeGen}}
           {{/if}}

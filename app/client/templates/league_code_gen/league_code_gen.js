@@ -18,7 +18,7 @@ Template.LeagueCodeGen.helpers({
   },
   "confirmedLeagueStartWeek" : function(){
     if(Session.get("uniqueLeagueCode") !== undefined) {
-      return Leagues.findOne({_id : Session.get("uniqueLeagueCode")}).starting;
+      return Leagues.findOne({_id : Session.get("uniqueLeagueCode")}).starting.toString().substr(0,15);
     }
   },
   "newLeagueCreated" : function(){

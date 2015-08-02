@@ -17,6 +17,31 @@
             <form id="enterLeagueForm" action="index.html" method="post">
               <label for="enterLeagueCode">Paste the code you've been sent: </label>
               <input type="text" name="enterLeagueForm" placeholder="Code goes here">
+              <div>
+                <span id="errorMessage" style="color:red"></span>
+
+                {{#if confirmationNeeded}}
+                  <p>
+                    <ul>
+                      <li>The league you are joining is called "{{leagueJoinName}}"</li>
+                      <li>Your first round of fixtures starts on {{leagueJoinStartDate}} so you must make your first pick before 11.40am (UK time) on that day, or you will get a random pick</li>
+                    </ul>
+                  </p>
+                  {{#if extraFeeConfirmation}}
+                    <p>Your Chairman has set a fee of £{{fee}} for this league. This means that there will be a prize pool for the league, but you cannot join without ticking the box below to confirm that you will pay up! Your Chairman will contact you to collect the fee.</p>
+                    <p>NOTE: For now, Killer takes no responsibility for collecting fees or administering prizes. This is just between you and your friends.</p>
+
+                    {{#if doubleConfirm}}
+                      <p style="color:red">
+                        You must confirm the entry fee to join this league. If you have an issue with the fee, please contact the person who sent you the league entry code.
+                      </p>
+                    {{/if}}
+                  <label for="feeCheck">Tick the box to agree to pay £{{fee}} into the prize pool</label>
+                  <input type="checkbox" name="feeCheck">
+                  {{/if}}
+                    Hit confirm to enter the league.
+                {{/if}}
+              </div>
             </form>
           </div>
         {{else}}
@@ -25,7 +50,11 @@
         <div class="modal-footer">
           <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
           {{#unless leagueJustJoined}}
-            <button type="button" id="joinLeagueButton" class="btn btn-primary">Join league</button>
+            {{#if confirmationNeeded}}
+              <button type="button" id="confirmLeagueButton" class="btn btn-primary">Confirm</button>
+              {{else}}
+              <button type="button" id="joinLeagueButton" class="btn btn-primary">Join league</button>
+            {{/if}}
           {{/unless}}
         </div>
       </div>

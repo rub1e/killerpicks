@@ -1,13 +1,13 @@
 <template name="CreateLeagueForm">
   <form id="createLeagueForm" action="">
     <label for="newLeagueName">League name: </label>
-    <input type="text" id="newLeagueName" name="newLeagueName" placeholder="Give your league a name">
+    <input type="text" id="newLeagueName" name="newLeagueName" placeholder="League name: A-Z,a-z,0-9">
     <label for="weeksDropDown">Pick a start date</label>
     {{> Gameweeks}}
     <br>
     <span>If you would like to have a prize pool, set the fee below. Otherwise leave it blank. For more information about fees and prize pools, click here</span>
     <br>
     <label for="newLeagueFee">League entry fee: £</label>
-    <input type="number" name="newLeagueFee" placeholder="Enter a digit">
+    <input type="text" name="newLeagueFee" placeholder="Whole number or blank">
   </form>
 </template>
