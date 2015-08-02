@@ -10,7 +10,12 @@ Template.LeagueEntrySuccess.events({
 Template.LeagueEntrySuccess.helpers({
   "leagueName" : function(){
     return Leagues.findOne({_id : Session.get("leagueJustJoined")}).leagueName;
+  },
+
+  "leagueJoinStartDate" : function(){
+    return Session.get("dateOfLeagueJoining");
   }
+
 });
 
 /*****************************************************************************/
