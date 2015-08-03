@@ -5,7 +5,7 @@ Accounts.ui.config({
   forceUsernameLowercase: true,
   forcePasswordLowercase: true,
   extraSignupFields: [{
-    fieldName: 'first-name',
+    fieldName: 'firstName',
     fieldLabel: 'First name',
     inputType: 'text',
     visible: true,
@@ -18,7 +18,7 @@ Accounts.ui.config({
       }
     }
   }, {
-    fieldName: 'last-name',
+    fieldName: 'lastName',
     fieldLabel: 'Last name',
     inputType: 'text',
     visible: true,
