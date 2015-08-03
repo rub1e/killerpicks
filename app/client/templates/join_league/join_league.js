@@ -10,6 +10,10 @@ Template.JoinLeague.events({
 
     if(league){
 
+      if(league.starting.setHours(11,40) > Date.now()){
+        return $("#errorMessage").text("Sorry, this league has already started and is no longer accepting new entrants");
+      }
+
       players = league.players;
       for(var i = 0; i < players.length; i += 1) {
         if (players[i].playerId === Meteor.userId()) {
