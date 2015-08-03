@@ -10,7 +10,7 @@ Template.JoinLeague.events({
 
     if(league){
 
-      if(league.starting.setHours(11,40) > Date.now()){
+      if(league.starting.setHours(11,40) < Date.now()){
         return $("#errorMessage").text("Sorry, this league has already started and is no longer accepting new entrants");
       }
 
