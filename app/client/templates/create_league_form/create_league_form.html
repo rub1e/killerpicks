@@ -1,7 +1,7 @@
 <template name="CreateLeagueForm">
   <form id="createLeagueForm" action="">
     <label for="newLeagueName">League name: </label>
-    <input type="text" id="newLeagueName" name="newLeagueName" placeholder="League name: A-Z,a-z,0-9">
+    <input type="text" id="newLeagueName" name="newLeagueName" maxlength="20" placeholder="Name: A-Z,a-z,0-9; 20 char">
     <label for="weeksDropDown">Pick a start date</label>
     {{> Gameweeks}}
     <br>

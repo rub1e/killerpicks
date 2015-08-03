@@ -3,3 +3,15 @@
 /*****************************************************************************/
 .leagues-view_row {
 }
+
+.leagueNameButton {
+  width: 20ch;
+}
+
+td {
+  text-align: center;
+}
+
+th {
+  text-align: center;
+}
