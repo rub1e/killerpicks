@@ -1,0 +1,23 @@
+<template name="DetailedLeagueView">
+  <div class="modal fade" id="leagueDetailModal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">{{leagueName}}</h4>
+      </div>
+      <div class="modal-body">
+        <ul>
+          <li>The chairman of this league is {{chairmanName}}</li>
+          <li>This league is on round {{round}}</li>
+          <li>You agreed to an entry fee of £{{leagueEntryFee}}; the prize pool is currently £{{leaguePrizePool}}</li>
+          <li>You may invite people to join using this code: {{leagueEntryCode}}</li>
+        </ul>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+</template>
