@@ -1,5 +1,5 @@
 <template name="DetailedLeagueView">
-  <div class="modal fade" id="leagueDetailModal" tabindex="-1" role="dialog">
+  <div class="modal fade" id="leagueDetailModal{{leagueName}}" tabindex="-1" role="dialog">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -8,11 +8,45 @@
       </div>
       <div class="modal-body">
         <ul>
-          <li>The chairman of this league is {{chairmanName}}</li>
-          <li>This league is on round {{round}}</li>
-          <li>You agreed to an entry fee of £{{leagueEntryFee}}; the prize pool is currently £{{leaguePrizePool}}</li>
-          <li>You may invite people to join using this code: {{leagueEntryCode}}</li>
+          <li>Your league chairman is {{chairmanName}}</li>
+          <li>You're on round {{round}}</li>
+          {{#if leagueEntryFee}}
+            <li>You agreed to an entry fee of £{{leagueEntryFee}}; the prize pool is currently £{{leaguePrizePool}}</li>
+          {{/if}}
+          <li>Right up until 11.30am (UK time) of the league start date, you may invite people to join using this code: {{leagueEntryCode}}</li>
         </ul>
+          <p>
+            Your league table:
+          </p>
+          <p>
+            Lucky players
+          </p>
+        <table>
+          <thead>
+            <th>Name</th>
+            <th>Lives left</th>
+            <th>This week's choice</th>
+          </thead>
+          <tbody>
+            {{#each leaguePlayers}}
+              {{> LeaguePlayersTable}}
+            {{/each}}
+          </tbody>
+        </table>
+          <p>
+            Dead players
+          </p>
+        <table>
+          <thead>
+            <th>Name</th>
+            <th>Died in round</th>
+          </thead>
+          <tbody>
+            {{#each deadPlayers}}
+              {{> DeadPlayersTable}}
+            {{/each}}
+          </tbody>
+        </table>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>

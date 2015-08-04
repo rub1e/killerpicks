@@ -36,7 +36,7 @@ Template.LeaguesViewRow.helpers({
     } else {
       return "Pick";
     }
-  }
+  },
 
 });
 

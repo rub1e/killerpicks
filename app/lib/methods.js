@@ -96,6 +96,14 @@ Meteor.methods({
 
   "inputGames" : function(obj) {
     Reality.insert(obj);
+  },
+
+  "getPlayerName" : function(id){
+    var entry = Meteor.users.findOne({_id : id},{fields : {"profile.firstName" : 1, "profile.lastName" : 1}}, function(err, res){
+      return res.profile.firstName + " " + res.profile.lastName;
+    });
+    console.log("entry", entry);
+    return entry;
   }
 
 });
