@@ -11,13 +11,8 @@ Template.DetailedLeagueView.helpers({
 
   "chairmanName" : function(){
     var chairman = this.players[0].playerId;
-    // var profile = Meteor.users.findOne({_id : chairman}, {fields : {"profile.firstName" : 1, "profile.lastName" : 1}});
-    // return profile.profile.firstName + " " + profile.profile.lastName;
-    var name;
-    Meteor.call("getPlayerName", chairman, function(err, res){
-      name = res;
-    });
-    return name;
+    var userEntry = Meteor.users.findOne({_id : chairman},{fields : {"profile.firstName" : 1, "profile.lastName" : 1}});
+    return userEntry.profile.firstName + " " + userEntry.profile.lastName;
   },
 
   "round" : function(){
@@ -37,19 +32,18 @@ Template.DetailedLeagueView.helpers({
   },
 
   "leaguePlayers" : function(){
-      var leaguePlayers = this.players.filter(function(a){
-        return a.roundDied === 0;
-      }).sort(function(a, b){
-        return a.livesLeft > b.livesLeft;
-      });
-      return leaguePlayers;
+    return this.players.filter(function(a){
+      return a.roundDied === 0;
+    }).sort(function(a, b){
+      return a.livesLeft > b.livesLeft;
+    });
   },
 
   "deadPlayers" : function(){
       return this.players.filter(function(a){
         return a.roundDied > 0;
       }).sort(function(a, b){
-        return a.livesLeft < b.livesLeft;
+        return a.livesLeft > b.livesLeft;
       });
   }
 

@@ -10,16 +10,8 @@ Template.LeaguePlayersTable.events({
 Template.LeaguePlayersTable.helpers({
 
   "alivePlayerName" : function(){
-    // var userEntry = Meteor.users.findOne({_id : this.playerId},{fields : {"profile.firstName" : 1, "profile.lastName" : 1}});
-    // return userEntry.profile.firstName + userEntry.profile.lastName;
-    return Meteor.call("getPlayerName", this.playerId, function(error, result){
-      if(error){
-        console.log("error", error);
-      }
-      if(result){
-         return result;
-      }
-    });
+    var userEntry = Meteor.users.findOne({_id : this.playerId},{fields : {"profile.firstName" : 1, "profile.lastName" : 1}});
+    return userEntry.profile.firstName + " " + userEntry.profile.lastName;
   },
 
   "playerLivesLeft" : function(){

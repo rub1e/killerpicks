@@ -11,7 +11,7 @@ Template.DeadPlayersTable.helpers({
 
   "playerName" : function(){
     var userEntry = Meteor.users.findOne({_id : this.playerId},{fields : {"profile.firstName" : 1, "profile.lastName" : 1}});
-    return userEntry.profile.firstName + userEntry.profile.lastName;
+    return userEntry.profile.firstName + " " + userEntry.profile.lastName;
   },
 
   "roundDiedIn" : function(){

@@ -15,38 +15,45 @@
           {{/if}}
           <li>Right up until 11.30am (UK time) of the league start date, you may invite people to join using this code: {{leagueEntryCode}}</li>
         </ul>
-          <p>
-            Your league table:
-          </p>
-          <p>
-            Lucky players
-          </p>
-        <table>
-          <thead>
-            <th>Name</th>
-            <th>Lives left</th>
-            <th>This week's choice</th>
-          </thead>
-          <tbody>
-            {{#each leaguePlayers}}
-              {{> LeaguePlayersTable}}
-            {{/each}}
-          </tbody>
-        </table>
-          <p>
-            Dead players
-          </p>
-        <table>
-          <thead>
-            <th>Name</th>
-            <th>Died in round</th>
-          </thead>
-          <tbody>
-            {{#each deadPlayers}}
-              {{> DeadPlayersTable}}
-            {{/each}}
-          </tbody>
-        </table>
+        <p>
+          Your league table:
+        </p>
+        <p>
+          Lucky players
+        </p>
+
+        <div class="table-responsive">
+          {{#if leaguePlayers}}
+          <table class="table">
+            <thead>
+              <th>Name</th>
+              <th>Lives</th>
+              <th>Choice</th>
+            </thead>
+            <tbody>
+              {{#each leaguePlayers}}
+                {{> LeaguePlayersTable}}
+              {{/each}}
+            </tbody>
+          </table>
+          {{/if}}
+          {{#if deadPlayers}}
+            <p>
+              Dead players
+            </p>
+            <table class="table">
+              <thead>
+                <th>Name</th>
+                <th>Died in round</th>
+              </thead>
+              <tbody>
+                {{#each deadPlayers}}
+                  {{> DeadPlayersTable}}
+                {{/each}}
+              </tbody>
+            </table>
+          {{/if}}
+        </div>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
