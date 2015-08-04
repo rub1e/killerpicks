@@ -1,9 +1,5 @@
 /*****************************************************************************/
-/* LeaguesView: Style */
+/* LeaguePlayersTable: Style */
 /*****************************************************************************/
-.leagues-view {
-}
-
-table {
-  width: auto !important;
+.league-players_table {
 }
