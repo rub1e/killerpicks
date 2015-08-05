@@ -1,0 +1,12 @@
+<template name="CurrentGames">
+  <p id="fixturesHeading">
+    <h3>Upcoming fixtures:</h3>
+  </p>
+  <div class="container">
+    {{#each game}}
+    <div class="col-md-4">
+      <span class="glyphicon glyphicon-calendar"> {{.}}</span>
+    </div>
+    {{/each}}
+  </div>
+</template>
