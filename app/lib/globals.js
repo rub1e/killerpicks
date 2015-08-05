@@ -1,5 +1,7 @@
 pLTeams = ["Arsenal", "Aston Villa", "Bournemouth", "Chelsea", "Crystal Palace", "Everton", "Leicester City", "Liverpool", "Manchester City", "Manchester United", "Newcastle United", "Norwich City", "Southampton", "Stoke City", "Sunderland", "Swansea City", "Tottenham Hotspur", "Watford", "West Bromwich Albion", "West Ham United"];
 
+pLTeamsAbbrev = {"Arsenal" : "ARS", "Aston Villa" : "AVL", "Bournemouth" : "BOU", "Chelsea" : "CHE", "Crystal Palace" : "CPL", "Everton" : "EVE", "Leicester City" : "LEI", "Liverpool" : "LIV", "Manchester City" : "MCI", "Manchester United" : "MUN", "Newcastle United" : "NEW", "Norwich City" : "NOR", "Southampton" : "SOU", "Stoke City" : "STK", "Sunderland" : "SUN", "Swansea City" : "SWA", "Tottenham Hotspur" : "TOT", "Watford" : "WAT", "West Bromwich Albion" : "WBA", "West Ham United" : "WHU"};
+
 pLGameweeks = ["2015-Aug-08",
 "2015-Aug-16",
 "2015-Aug-23",

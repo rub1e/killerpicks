@@ -7,10 +7,10 @@ Template.InputReality.events({
     var gameWeek = $("#weeksDiv").children()[0].value;
     var entry = {gameWeek : gameWeek, matches : [], winningTeams : [1,2,3,4,5,6,7,8,9,10]};
     for (var i = 1; i < 11; i += 1){
-      var home = "#home" + i;
-      var away = "#away" + i;
-      var string = $(home).val() + " v " + $(away).val();
-      entry.matches.push(string);
+      var homeT = "#home" + i;
+      var awayT = "#away" + i;
+      var obj = {home: $(homeT).val(), away : $(awayT).val()};
+      entry.matches.push(obj);
     }
     Meteor.call("inputGames", entry, function(err, res){
       $("#inputReality").find("select").val("");
