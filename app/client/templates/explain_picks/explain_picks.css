@@ -1,14 +1,10 @@
 /*****************************************************************************/
-/* CurrentGames: Style */
+/* ExplainPicks: Style */
 /*****************************************************************************/
-.current-games {
+.explain-picks {
+}
+
+#explainPicksDiv {
   margin: 0 auto;
-}
-
-#fixturesHeading {
-  text-align: center;
-}
-
-h3 {
   text-align: center;
 }

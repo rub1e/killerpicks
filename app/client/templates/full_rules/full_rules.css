@@ -1,14 +1,9 @@
 /*****************************************************************************/
-/* CurrentGames: Style */
+/* FullRules: Style */
 /*****************************************************************************/
-.current-games {
-  margin: 0 auto;
+.full-rules {
 }
 
-#fixturesHeading {
-  text-align: center;
-}
-
-h3 {
-  text-align: center;
+#fullRulesModal {
+  
 }
