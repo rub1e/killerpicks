@@ -3,3 +3,28 @@
 /*****************************************************************************/
 .home {
 }
+#homeWrapper{
+  text-align: center;
+}
+
+h1 {
+  text-align: center;
+}
+
+#login-screen .dropdown-menu {
+  position: relative;
+  height: 270px;
+  margin-left: auto;
+  margin-right: auto;
+  float: none;
+  width: 180px;
+}
+
+
+/*#login-screen #login-dropdown-list {
+  display: block;
+}
+
+#login-screen a.dropdown-toggle {
+  display: none;
+}*/

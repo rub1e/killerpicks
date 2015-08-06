@@ -6,30 +6,28 @@ Template.CreateLeague.events({
     var startingGameWeek = $("#weeksDropDown").val();
     var proposedLeagueName = $("#newLeagueName").val();
     var fee = $("input[name=newLeagueFee]").val();
-    console.log(fee);
+
+    proposedLeagueName = proposedLeagueName.replace(new RegExp(['<'],"g"), "&lt;");
+    proposedLeagueName = proposedLeagueName.replace(new RegExp(['>'],"g"), "&gt;");
+
     var carryOn = true;
     e.preventDefault();
     $("#errorMessage").text("");
 
-    if(!proposedLeagueName || proposedLeagueName.match(/[^A-Za-z0-9_. ]/)){
-      $("#errorMessage").append("<li>Please enter a valid name for your league</li>");
-      $("label").css("color:red");
+    if(!proposedLeagueName){
+      $("#errorMessage").append("<li>Please enter a name for your league</li>");
       carryOn = false;
     }
     if(!startingGameWeek){
       $("#errorMessage").append("<li>Please choose a starting gameweek from the drop-down menu</li>");
-      $("label").css("color:red");
       carryOn = false;
     }
     if(isNaN(fee)){
-      console.log("isnan", fee);
       $("#errorMessage").append("<li>The league fee can only be a positive whole number, '0', or left blank</li>");
-      $("label").css("color:red");
       carryOn = false;
     }
     if(Leagues.findOne({leagueName : proposedLeagueName, status : {$ne : "ended"}})){
       $("#errorMessage").append("<li>An active league with this name already exists: please choose another</li>");
-      $("label").css("color:red");
       carryOn = false;
     }
     if(carryOn){

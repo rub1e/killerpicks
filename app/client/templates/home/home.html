@@ -3,9 +3,15 @@
   {{#if currentUser}}
     {{> LeaguesView}}
   {{else}}
-    <h1>Welcome to KillerPicks</h1>
-    <h3>Log in to see your leagues, or create an account to join/create leagues</h3>
-    {{> loginButtons}}
+    <div id="homeWrapper">
+      <h1>Killer.</h1>
+      <h3>The football prediction game</h3>
+      <br>
+      <div id="login-screen">
+        {{> BasicGameInfo}}
+        {{> loginButtons}}
+      </div>
+    </div>
   {{/if}}
 
 </template>
