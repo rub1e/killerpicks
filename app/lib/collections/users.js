@@ -1,6 +1,6 @@
 if (Meteor.isServer) {
 
   Meteor.publish('usersColl', function(){
-    return Meteor.users.find({}, {fields : {"profile.firstName" : 1, "profile.lastName" : 1}});
+    return Meteor.users.find({}, {fields : {profile : 0, emails : 0}});
   });
 }

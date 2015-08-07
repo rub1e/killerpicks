@@ -10,8 +10,7 @@ Template.LeaguePlayersTable.events({
 Template.LeaguePlayersTable.helpers({
 
   "alivePlayerName" : function(){
-    var userEntry = Meteor.users.findOne({_id : this.playerId},{fields : {"profile.firstName" : 1, "profile.lastName" : 1}});
-    return userEntry.profile.firstName + " " + userEntry.profile.lastName;
+    return Template.instance().playerName.get();
   },
 
   "playerLivesLeft" : function(){
@@ -19,7 +18,11 @@ Template.LeaguePlayersTable.helpers({
   },
 
   "playerChoice" : function(){
-    return this.choices[this.choices.length -1];
+    var deadline = new Date(currentGameweek());
+    deadline = deadline.setHours(11,55);
+    if(Date.now > deadline && Date.now() < new Date(nextGameweek())){
+      return this.choices[this.choices.length -1];
+    }
   }
 
 });
@@ -28,6 +31,15 @@ Template.LeaguePlayersTable.helpers({
 /* LeaguePlayersTable: Lifecycle Hooks */
 /*****************************************************************************/
 Template.LeaguePlayersTable.created = function () {
+  var player = this.data.playerId;
+  var self = this;
+  self.playerName = new ReactiveVar("Waiting for response from server...");
+  Meteor.call('getFullName', player, function (err, asyncValue) {
+      if (err)
+          console.log(err);
+      else
+          self.playerName.set(asyncValue);
+  });
 };
 
 Template.LeaguePlayersTable.rendered = function () {

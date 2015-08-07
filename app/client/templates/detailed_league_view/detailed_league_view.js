@@ -10,9 +10,7 @@ Template.DetailedLeagueView.events({
 Template.DetailedLeagueView.helpers({
 
   "chairmanName" : function(){
-    var chairman = this.players[0].playerId;
-    var userEntry = Meteor.users.findOne({_id : chairman},{fields : {"profile.firstName" : 1, "profile.lastName" : 1}});
-    return userEntry.profile.firstName + " " + userEntry.profile.lastName;
+    return Template.instance().chairmanName.get();
   },
 
   "round" : function(){
@@ -45,6 +43,14 @@ Template.DetailedLeagueView.helpers({
       }).sort(function(a, b){
         return a.livesLeft > b.livesLeft;
       });
+  },
+
+  "leagueNameReplaced" : function(){
+    return this.leagueName.replace(" ", "zzz");
+  },
+
+  "leagueStarting" : function (){
+    return this.starting.toString().substring(0, 15);
   }
 
 });
@@ -53,6 +59,15 @@ Template.DetailedLeagueView.helpers({
 /* DetailedLeagueView: Lifecycle Hooks */
 /*****************************************************************************/
 Template.DetailedLeagueView.created = function () {
+  var chairman = this.data.players[0].playerId;
+  var self = this;
+  self.chairmanName = new ReactiveVar("Waiting for response from server...");
+  Meteor.call('getFullName', chairman, function (err, asyncValue) {
+      if (err)
+          console.log(err);
+      else
+          self.chairmanName.set(asyncValue);
+  });
 };
 
 Template.DetailedLeagueView.rendered = function () {

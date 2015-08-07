@@ -52,3 +52,9 @@ currentGameweek = function(){
     return Date.parse(a) + 86300000 > Date.now();
   })[0];
 };
+
+nextGameweek = function(){
+  return pLGameweeks.filter(function(a){
+    return Date.parse(a) + 86300000 > Date.now();
+  })[1];
+};

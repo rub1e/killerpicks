@@ -1,5 +1,5 @@
 <template name="DetailedLeagueView">
-  <div class="modal fade" id="leagueDetailModal{{leagueName}}" tabindex="-1" role="dialog">
+  <div class="modal fade" id="leagueDetailModal{{leagueNameReplaced}}" tabindex="-1" role="dialog">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -13,6 +13,7 @@
           {{#if leagueEntryFee}}
             <li>You agreed to an entry fee of £{{leagueEntryFee}}; the prize pool is currently £{{leaguePrizePool}}</li>
           {{/if}}
+          <li>The first round of games for this league are played on {{leagueStarting}}</li>
           <li>Right up until 11.30am (UK time) of the league start date, you may invite people to join using this code: {{leagueEntryCode}}</li>
         </ul>
         <p>
