@@ -14,7 +14,6 @@ Houston.methods("leagues", {
 
   "decrementLives" : function(){
     var latestWinners = Reality.findOne({gameWeek : currentGameweek()}, {fields : {winningTeams : 1, _id : 0}}).winningTeams;
-    console.log(latestWinners);
     var allActiveLeagues = Leagues.find({status : "active"}, {fields : {players : 1}}).fetch();
     var allActiveLeaguesLength = allActiveLeagues.length;
     var livesLostcount = 0;
@@ -41,7 +40,7 @@ Houston.methods("leagues", {
     var nextGameWeek = new Date(pLGameweeks.filter(function(a){
       return new Date(a) > Date.now();
     })[0]);
-    return "No of leagues activated: " + Leagues.update({starting : nextGameWeek}, {$set :
+    return "No of leagues activated: " + Leagues.update({starting : nextGameWeek, status : "pending"}, {$set :
       {status: "active"}
     }, {multi : true});
   },
@@ -62,7 +61,7 @@ Houston.methods("leagues", {
           });
           var randomIndex = Math.round(Math.random() * (teamsLeft.length - 1));
           var randomChoice = teamsLeft[randomIndex];
-          console.log(randomChoice, " added to ", player, " in ", league);
+          console.log(randomChoice, " added to ", player.playerId, " in ", league);
           Meteor.call("makeChoice", randomChoice, league._id, player.playerId);
         }
       }

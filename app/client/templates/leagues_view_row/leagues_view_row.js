@@ -38,6 +38,10 @@ Template.LeaguesViewRow.helpers({
     }
   },
 
+  "leagueNameReplaced" : function(){
+    return this.leagueName.replace(" ", "zzz");
+  }
+
 });
 
 /*****************************************************************************/
