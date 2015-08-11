@@ -20,7 +20,7 @@ Template.LeaguePlayersTable.helpers({
   "playerChoice" : function(){
     var deadline = new Date(currentGameweek());
     deadline = deadline.setHours(11,55);
-    if(Date.now > deadline && Date.now() < new Date(nextGameweek())){
+    if(Date.now() > deadline && Date.now() < new Date(nextGameweek())){
       return this.choices[this.choices.length -1];
     }
   }

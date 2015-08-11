@@ -45,10 +45,6 @@ Template.DetailedLeagueView.helpers({
       });
   },
 
-  "leagueNameReplaced" : function(){
-    return this.leagueName.replace(" ", "zzz");
-  },
-
   "leagueStarting" : function (){
     return this.starting.toString().substring(0, 15);
   }
