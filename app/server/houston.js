@@ -125,3 +125,23 @@ Houston.methods("leagues", {
   }
 
 });
+
+Houston.methods("reality", {
+  "sendReminder" : function(){
+    var emailList = [];
+    var allActiveLeagues = Leagues.find({status : "active"}, {fields : {players : 1}}).fetch();
+    var allActiveLeaguesIds = [];
+    for(var i = 0; i < allActiveLeagues.length; i += 1){
+      allActiveLeaguesIds.push(allActiveLeagues[i]._id);
+    }
+    var users = Meteor.users.find({"profile.leaguesMemberOf" : {$elemMatch : {$in : allActiveLeaguesIds}}}, {fields : {emails : 1}}).fetch();
+    for(var j = 0; j < users.length; j += 1){
+      emailList.push({"email" : users[j].emails[0].address});
+    }
+    var email = {template : "killerreminder", recipients : emailList};
+    var ending = new Date(currentGameweek());
+    ending = ending.toString().substr(0,15) + " at 7pm";
+    var content = {globalMergeVars : [{name: "deadline", content : ending}]};
+    Meteor.call("sendMandrillEmail", email, content);
+  }
+});

@@ -101,6 +101,19 @@ Meteor.methods({
   "getFullName" : function(id){
     var userEntry = Meteor.users.findOne({_id : id},{fields : {"profile.firstName" : 1, "profile.lastName" : 1}});
     return userEntry.profile.firstName + " " + userEntry.profile.lastName;
+  },
+
+  "sendMandrillEmail" : function(email, content) {
+    Mandrill.messages.sendTemplate({
+      "template_name" : email.template,
+      "template_content" : [{}],
+      "message" : {
+        "to" : email.recipients,
+        "global_merge_vars" : content.globalMergeVars,
+        "track_clicks" : true,
+        "track_opens" : true
+      }
+    });
   }
 
 });
