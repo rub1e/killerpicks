@@ -10,7 +10,8 @@ accounts-password
 twbs:bootstrap
 reactive-var
 email
-ian:accounts-ui-bootstrap-3
 alanning:roles
 houston:admin
 wylio:mandrill
+http
+ian:accounts-ui-bootstrap-3

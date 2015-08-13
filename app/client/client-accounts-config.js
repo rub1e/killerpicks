@@ -1,9 +1,7 @@
 Accounts.ui.config({
   requestPermissions: {},
-  passwordSignupFields : "USERNAME_AND_EMAIL",
+  passwordSignupFields : "EMAIL_ONLY",
   forceEmailLowercase: true,
-  forceUsernameLowercase: true,
-  forcePasswordLowercase: true,
   extraSignupFields: [{
     fieldName: 'firstName',
     fieldLabel: 'First name',

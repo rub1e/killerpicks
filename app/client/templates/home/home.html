@@ -5,11 +5,24 @@
   {{else}}
     <div id="homeWrapper">
       <h1>Killer.</h1>
-      <h3>The football prediction game</h3>
       <br>
       <div id="login-screen">
+        <p>
+          <h3><b>Welcome to Killer - a free Premier League predictions game.</b></h3>
+        </p>
         {{> BasicGameInfo}}
-        {{> loginButtons}}
+        <div id="logRegButtons">
+          {{> loginButtons}}
+          <br>
+          <div id="disclaimerText">
+            <p style="color:red">
+              PLEASE NOTE: during August, Killer is in BETA. This means that some things might not work perfectly, and you can expect constant improvements to how it looks.
+            </p>
+            <p>
+              All feedback gratefully received at <a href="mailto:chairman@killer.football?subject=Feedback" target="newtab">chairman@killer.football</a>
+            </p>
+          </div>
+        </div>
       </div>
     </div>
   {{/if}}
