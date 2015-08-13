@@ -5,6 +5,7 @@
 }
 #homeWrapper{
   text-align: center;
+  margin: 0 auto;
 }
 
 h1 {
@@ -14,17 +15,29 @@ h1 {
 #login-screen .dropdown-menu {
   position: relative;
   height: 270px;
-  margin-left: auto;
-  margin-right: auto;
+  /*margin-left: auto;
+  margin-right: auto;*/
   float: none;
   width: 180px;
+  display: inline-block;
+  vertical-align: top;
+}
+
+#logRegButtons {
+  vertical-align: top;
+  display: inline-block;
+  width: 25%;
 }
 
 
-/*#login-screen #login-dropdown-list {
+#login-screen #login-dropdown-list {
   display: block;
 }
 
 #login-screen a.dropdown-toggle {
   display: none;
-}*/
+}
+
+#disclaimerText {
+  display: inline-block;
+}
