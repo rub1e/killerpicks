@@ -1,4 +1,4 @@
 Mandrill.config({
-  username : "alex.rubner@gmail.com",
-  key : "srm0sVK8pK742BTupKYhbQ"
+  username : process.env.MANDRILL_API_USER,
+  key : process.env.MANDRILL_API_KEY
 });
