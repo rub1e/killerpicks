@@ -20,6 +20,8 @@
           <option value={{.}}>{{.}}</option>
         {{/each}}
       </select>
+      <input type="date" id="gameDate{{.}}">
+      <input type="time" id="gameTime{{.}}">
     {{/each}}
     <input type="submit" name="some_name" value="Submit">
   </form>
