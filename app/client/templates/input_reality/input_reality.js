@@ -6,7 +6,7 @@ Template.InputReality.events({
     e.preventDefault();
     var gameWeek = $("#weeksDiv").children()[0].value;
     var entry = {gameWeek : gameWeek, matches : [], winningTeams : ["1","2","3","4","5"]};
-    
+
     for (var i = 1; i < 11; i += 1){
       var homeT = "#home" + i;
       var awayT = "#away" + i;
@@ -22,6 +22,10 @@ Template.InputReality.events({
     Meteor.call("inputGames", entry, function(err, res){
       $("#inputReality").find("select").val("");
     });
+  },
+
+  "click #disableChoice" : function(){
+    Meteor.call("disableChoice");
   }
 });
 
