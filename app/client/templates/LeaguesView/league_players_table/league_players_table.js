@@ -18,7 +18,7 @@ Template.LeaguePlayersTable.helpers({
   },
 
   "playerChoice" : function(){
-    if(Status.findOne().choiceStatus){
+    if(Status.findOne().displayChoices){
       return this.choices[this.choices.length -1];
     }
   }
