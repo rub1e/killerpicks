@@ -114,6 +114,10 @@ Meteor.methods({
         "track_opens" : true
       }
     });
+  },
+
+  "disableChoice" : function(){
+    Status.insert({displayChoices : false});
   }
 
 });
