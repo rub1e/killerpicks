@@ -1,0 +1,21 @@
+<template name="LeaguesViewTable">
+  <div class="table-responsive table-wrapper">
+    <table id="mainTable" class="table table-hover">
+      <thead>
+        <tr>
+          <th class="fixedCol">League</th>
+          <th class="fixedCol">Next pick</th>
+          <th class="fixedCol">Lives</th>
+          <th class="fixedCol">Round</th>
+          <th class="fixedCol">Players</th>
+          <th class="fixedCol">QuickPick</th>
+        </tr>
+      </thead>
+      <tbody>
+        {{#each playerLeagues}}
+          {{> LeaguesViewRow}}
+        {{/each}}
+      </tbody>
+    </table>
+  </div>
+</template>

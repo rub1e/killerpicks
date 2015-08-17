@@ -1,10 +1,5 @@
 <template name="MasterLayout">
   {{> Headers}}
-  <ul>
-    {{#if currentUser}}
-      {{> Navbar}}
-    {{/if}}
-    {{> FullRules}}
-</ul>
+  {{> FullRules}}
   {{> yield}}
 </template>

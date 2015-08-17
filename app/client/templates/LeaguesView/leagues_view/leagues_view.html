@@ -1,26 +1,49 @@
 
 <template name="LeaguesView">
-  <div id=leaguesViewIntro>
-    {{> CurrentGames}}
-    {{> ExplainPicks}}
-  </div>
-  <div class="table-responsive table-wrapper">
-    <table id="mainTable" class="table table-hover">
-      <thead>
-        <tr>
-          <th class="fixedCol">League</th>
-          <th class="fixedCol">Next pick</th>
-          <th class="fixedCol">Lives</th>
-          <th class="fixedCol">Round</th>
-          <th class="fixedCol">Players</th>
-          <th class="fixedCol">QuickPick</th>
-        </tr>
-      </thead>
-      <tbody>
-        {{#each playerLeagues}}
-          {{> LeaguesViewRow}}
-        {{/each}}
-      </tbody>
-    </table>
+
+  <div class="container-fluid">
+  	<div class="row">
+  		<div class="col-md-12">
+            <h1>ADVERTISING GOES HERE</h1>
+  		</div>
+  	</div>
+
+    <div class="row">
+  		<div class="col-md-12">
+        {{#if currentUser}}
+          {{> Navbar}}
+        {{/if}}
+  		</div>
+  	</div>
+
+  	<div class="row">
+  		<div class="col-md-2">
+  		</div>
+  		<div class="col-md-8">
+        <div id=leaguesViewIntro>
+          {{> CurrentGames}}
+          {{> ExplainPicks}}
+        </div>
+  		</div>
+  		<div class="col-md-2">
+  		</div>
+  	</div>
+
+    <div class="row">
+  		<div class="col-md-2">
+  		</div>
+
+  		<div class="col-md-8">
+        {{> LeaguesViewTable}}
+  		</div>
+
+  		<div class="col-md-2">
+  		</div>
+  	</div>
+
+  	<div class="row">
+  		<div class="col-md-12">
+  		</div>
+  	</div>
   </div>
 </template>
