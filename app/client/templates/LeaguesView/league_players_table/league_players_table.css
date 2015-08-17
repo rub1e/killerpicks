@@ -3,3 +3,17 @@
 /*****************************************************************************/
 .league-players_table {
 }
+
+table {
+  width: auto !important;
+}
+
+#mainTable {
+  margin: 0 auto;
+}
+
+
+.table-wrapper {
+    width: auto;
+    margin: 0 auto;
+}
