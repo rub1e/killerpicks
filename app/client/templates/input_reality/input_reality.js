@@ -5,7 +5,8 @@ Template.InputReality.events({
   "submit form" : function(e){
     e.preventDefault();
     var gameWeek = $("#weeksDiv").children()[0].value;
-    var entry = {gameWeek : gameWeek, matches : [], winningTeams : ["1","2","3","4","5"]};
+    var deadlineTime = $("#gameweekDeadline").val().split(":");
+    var entry = {gameWeek : gameWeek, deadline : deadlineTime,  matches : [], winningTeams : ["1","2","3","4","5"]};
 
     for (var i = 1; i < 11; i += 1){
       var homeT = "#home" + i;
@@ -20,7 +21,7 @@ Template.InputReality.events({
     }
 
     Meteor.call("inputGames", entry, function(err, res){
-      $("#inputReality").find("select").val("");
+      alert("games added");
     });
   },
 

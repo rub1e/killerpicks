@@ -95,7 +95,13 @@ Meteor.methods({
   },
 
   "inputGames" : function(obj) {
-    Reality.insert(obj);
+    var deadlineDate = new Date(obj.gameWeek).setHours(obj.deadline[0], obj.deadline[1]);
+    var entry = obj;
+    entry.deadline = deadlineDate;
+
+    Reality.insert(entry, function(err, res){
+      var wait = deadlineDate - Date.now();
+    });
   },
 
   "getFullName" : function(id){
@@ -118,6 +124,12 @@ Meteor.methods({
 
   "disableChoice" : function(){
     Status.insert({displayChoices : false});
+  },
+
+  "afterDeadline" : function(){
+    //do random picks
+    //display choices
+    //disable picks
   }
 
 });

@@ -3,6 +3,7 @@
   <form id="inputReality">
     <div id="weeksDiv">
       {{> Gameweeks}}
+      <input type="time" id="gameweekDeadline">
     </div>
     {{#each numberOfGames}}
       <p>Game {{.}}</p>
@@ -23,7 +24,7 @@
       <input type="date" id="gameDate{{.}}">
       <input type="time" id="gameTime{{.}}">
     {{/each}}
-    <input type="submit" name="some_name" value="Submit">
+    <input type="submit" value="Submit">
   </form>
   <br>
   <div style="border : 1px solid black">
