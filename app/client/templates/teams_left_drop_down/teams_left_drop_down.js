@@ -8,7 +8,6 @@ Template.TeamsLeftDropDown.events({
       return e.playerId === Meteor.userId();
     })[0];
     if(chosenTeam !== "Pick this week's team" && player.choices.indexOf(chosenTeam) < 0) {
-      console.log("sending team ID", chosenTeam, this._id);
       Meteor.call("makeChoice", chosenTeam, this._id, function(err, res){
         Meteor.call("playerLeaguesArray", function(error, result){
           Session.set("leagues", result);

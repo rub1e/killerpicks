@@ -58,8 +58,8 @@ Meteor.methods({
     } else {return "no league";}
   },
 
-  "playerLeaguesArray" : function(){
-    var user = Meteor.userId();
+  "playerLeaguesArray" : function(playerId){
+    var user = playerId ? playerId : Meteor.userId();
     var userLeagues = Meteor.users.find({_id:user}).fetch()[0].profile.leaguesMemberOf;
     var objArr = Leagues.find({_id : {$in : userLeagues}}).fetch();
     return objArr;
@@ -123,13 +123,14 @@ Meteor.methods({
     });
   },
 
-  "disableChoice" : function(){
-    Status.upsert({}, {$set : {displayChoices : false}});
+  "setViewChoice" : function(bool){
+    Status.upsert({}, {$set : {displayChoices : bool}});
   },
 
   "afterDeadline" : function(deadline){
     console.log("afterDeadline");
     Meteor.call("randomPickSweep", function(err, res){
+      Meteor.call("setViewChoice", true);
     });
   },
 

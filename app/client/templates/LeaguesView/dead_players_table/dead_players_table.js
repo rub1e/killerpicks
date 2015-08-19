@@ -10,8 +10,7 @@ Template.DeadPlayersTable.events({
 Template.DeadPlayersTable.helpers({
 
   "playerName" : function(){
-    var userEntry = Meteor.users.findOne({_id : this.playerId},{fields : {"profile.firstName" : 1, "profile.lastName" : 1}});
-    return userEntry.profile.firstName + " " + userEntry.profile.lastName;
+    return Template.instance().deadPlayerName.get();
   },
 
   "roundDiedIn" : function(){
@@ -24,6 +23,15 @@ Template.DeadPlayersTable.helpers({
 /* DeadPlayersTable: Lifecycle Hooks */
 /*****************************************************************************/
 Template.DeadPlayersTable.created = function () {
+  var player = this.data.playerId;
+  var self = this;
+  self.deadPlayerName = new ReactiveVar("Waiting for response from server...");
+  Meteor.call('getFullName', player, function (err, asyncValue) {
+      if (err)
+          console.log(err);
+      else
+          self.deadPlayerName.set(asyncValue);
+  });
 };
 
 Template.DeadPlayersTable.rendered = function () {

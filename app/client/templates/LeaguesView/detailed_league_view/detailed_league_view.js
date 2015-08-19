@@ -41,7 +41,7 @@ Template.DetailedLeagueView.helpers({
       return this.players.filter(function(a){
         return a.roundDied > 0;
       }).sort(function(a, b){
-        return a.livesLeft > b.livesLeft;
+        return b.roundDied > a.roundDied;
       });
   },
 
@@ -57,6 +57,7 @@ Template.DetailedLeagueView.helpers({
 Template.DetailedLeagueView.created = function () {
   var chairman = this.data.players[0].playerId;
   var self = this;
+  //using ReactiveVar instead of global session var
   self.chairmanName = new ReactiveVar("Waiting for response from server...");
   Meteor.call('getFullName', chairman, function (err, asyncValue) {
       if (err)
