@@ -34,7 +34,7 @@ Template.LeaguesViewRow.helpers({
     if(player.choices.length && this.round === player.choices.length){
       return player.choices[player.choices.length -1];
     } else {
-      return "Pick";
+      return "Make your pick";
     }
   }
 
