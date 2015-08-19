@@ -65,8 +65,8 @@ Meteor.methods({
     return objArr;
   },
 
-  "makeChoice" : function(team, leagueId){
-    var user = Meteor.userId();
+  "makeChoice" : function(team, leagueId, playerId){
+    var user = playerId ? playerId : Meteor.userId();
     Leagues.update({_id : leagueId, "players.playerId" : user}, {$push : {
        "players.$.choices" : team
     }});
@@ -95,7 +95,14 @@ Meteor.methods({
   },
 
   "inputGames" : function(obj) {
-    Reality.insert(obj);
+    var deadlineDate = new Date(obj.gameWeek).setHours(obj.deadline[0], obj.deadline[1]);
+    var entry = obj;
+    entry.deadline = deadlineDate;
+    Reality.insert(entry, function(err, res){
+      var wait = deadlineDate - Date.now();
+      console.log("wait", wait);
+      Meteor.setTimeout(Meteor.call("afterDeadline"), wait);
+    });
   },
 
   "getFullName" : function(id){
@@ -117,8 +124,40 @@ Meteor.methods({
   },
 
   "disableChoice" : function(){
-    Status.insert({displayChoices : false});
-  }
+    Status.upsert({}, {$set : {displayChoices : false}});
+  },
+
+  "afterDeadline" : function(deadline){
+    console.log("afterDeadline");
+    Meteor.call("randomPickSweep", function(err, res){
+    });
+  },
+
+  "randomPickSweep" : function(){
+    var allActiveLeagues = Leagues.find({status : "active"}, {fields : {players : 1, round : 1}}).fetch();
+    var allActiveLeaguesLength = allActiveLeagues.length;
+
+    //cycle through all active leagues
+    for(var i = 0; i < allActiveLeaguesLength; i += 1) {
+      var league = allActiveLeagues[i];
+      var round = league.round;
+      //cycle through players in leagues
+      for(var j = 0; j < league.players.length; j += 1) {
+        var player = league.players[j];
+        var choices = player.choices;
+        //check if alive players have made their choices
+        if(round > choices.length && player.roundDied === 0) {
+          //get list of unchosen teams
+          var teamsLeft = pLTeams.filter(function(a){
+            return choices.indexOf(a) < 0;
+          });
+          var randomIndex = Math.round(Math.random() * (teamsLeft.length - 1));
+          var randomChoice = teamsLeft[randomIndex];
+          Meteor.call("makeChoice", randomChoice, league._id, player.playerId);
+        }
+      }
+    }
+  },
 
 });
 
