@@ -14,7 +14,7 @@ Template.InputReality.events({
       var awayT = "#away" + i;
       var gDate = "#gameDate" + i;
       var gTime = "#gameTime" + i;
-      var obj = {home: $(homeT).val(),
+      var obj = {home : $(homeT).val(),
                  away : $(awayT).val(),
                  date : $(gDate).val(),
                  time : $(gTime).val()};

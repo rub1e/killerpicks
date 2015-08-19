@@ -49,13 +49,17 @@ Houston.methods("leagues", {
     var allActiveLeagues = Leagues.find({status : "active"}, {fields : {players : 1, round : 1}}).fetch();
     var allActiveLeaguesLength = allActiveLeagues.length;
 
+    //cycle through all active leagues
     for(var i = 0; i < allActiveLeaguesLength; i += 1) {
       var league = allActiveLeagues[i];
       var round = league.round;
+      //cycle through players in leagues
       for(var j = 0; j < league.players.length; j += 1) {
         var player = league.players[j];
         var choices = player.choices;
-        if(round > choices.length) {
+        //check if alive players have made their choices
+        if(round > choices.length && player.roundDied === 0) {
+          //get list of unchosen teams
           var teamsLeft = pLTeams.filter(function(a){
             return choices.indexOf(a) < 0;
           });
@@ -144,4 +148,5 @@ Houston.methods("reality", {
     var content = {globalMergeVars : [{name: "deadline", content : ending}]};
     Meteor.call("sendMandrillEmail", email, content);
   }
+
 });
