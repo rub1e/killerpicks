@@ -1,0 +1,19 @@
+<template name="Winners">
+  <form id="winnersForm">
+    <div id="gameWeekWinner">
+      {{> Gameweeks}}
+    </div>
+    <br>
+    {{#each numberOfGames}}
+      <p>Game {{.}}</p>
+      <br>
+      <select id="winner{{.}}" class="winnerSelect">
+        <option>Pick</option>
+        {{#each teams}}
+          <option value={{.}}>{{.}}</option>
+        {{/each}}
+      </select>
+    {{/each}}
+    <input type="submit" value="Submit">
+  </form>
+</template>

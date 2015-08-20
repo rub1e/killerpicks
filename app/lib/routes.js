@@ -18,3 +18,11 @@ Router.route('/reality', function () {
     this.render("NoPermission");
   }
 });
+
+Router.route('/winners', function () {
+  if(Roles.userIsInRole(Meteor.user(), "admin")) {
+    this.render('Winners');
+  } else {
+    this.render("NoPermission");
+  }
+});

@@ -105,6 +105,23 @@ Meteor.methods({
     });
   },
 
+  "inputWinners" : function(gameWeek, arrayOfWinners){
+    Reality.update({gameWeek : gameWeek}, {$set:{
+      winningTeams : arrayOfWinners
+    }}, function(err, res){
+      Meteor.call("decrementLives", function(err1, res1){
+        Meteor.call("killLosers", function(err2, res2){
+          Meteor.call("announceChamps", function(err3, res3){
+            Meteor.call("reOpenLeagues", function(err4, res4){
+              Meteor.call("activateLeagues")
+            });
+          });
+        });
+      });
+    });
+
+  },
+
   "getFullName" : function(id){
     var userEntry = Meteor.users.findOne({_id : id},{fields : {"profile.firstName" : 1, "profile.lastName" : 1}});
     return userEntry.profile.firstName + " " + userEntry.profile.lastName;
@@ -125,6 +142,12 @@ Meteor.methods({
 
   "setViewChoice" : function(bool){
     Status.upsert({}, {$set : {displayChoices : bool}});
+  },
+
+  "setCurrentGameWeek" : function(newGameWeek){
+    Status.upsert({}, {$set:{
+      gameWeek : newGameWeek
+    }});
   },
 
   "afterDeadline" : function(deadline){
@@ -159,6 +182,42 @@ Meteor.methods({
       }
     }
   },
+
+  "decrementLives" : function(){
+    var latestWinners = Reality.findOne({gameWeek : currentGameweek()}, {fields : {winningTeams : 1, _id : 0}}).winningTeams;
+    var allActiveLeagues = Leagues.find({status : "active"}, {fields : {players : 1}}).fetch();
+    var allActiveLeaguesLength = allActiveLeagues.length;
+
+    for(var i = 0; i < allActiveLeaguesLength; i += 1) {
+      var league = allActiveLeagues[i];
+      for(var j = 0; j < league.players.length; j += 1) {
+        var player = league.players[j];
+        var choice = player.choices[player.choices.length -1];
+        if(latestWinners.indexOf(choice) < 0) {
+          Leagues.update({_id : league._id, "players.playerId" : player.playerId}, {$inc :
+              {"players.$.livesLeft" : -1}
+          });
+        }
+      }
+    }
+  },
+
+  "killLosers" : function(){
+    var allActiveLeagues = Leagues.find({status : "active"}, {fields : {players : 1, round : 1}}).fetch();
+
+    for(var i = 0; i < allActiveLeagues.length; i += 1) {
+      var league = allActiveLeagues[i];
+      var round = league.round;
+      for(var j = 0; j < league.players.length; j += 1) {
+        var player = league.players[j];
+        if(player.livesLeft < 1 && player.roundDied === 0) {
+          Leagues.update({_id : league._id, "players.playerId" : player.playerId}, {$set: {
+            "players.$.roundDied" : round
+          }});
+        }
+      }
+    }
+  }
 
 });
 

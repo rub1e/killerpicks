@@ -48,13 +48,11 @@ pLGameweeks = ["2015-Aug-08",
 "2016-Jun-04"];
 
 currentGameweek = function(){
-  return pLGameweeks.filter(function(a){
-    return Date.parse(a) + 86300000 > Date.now();
-  })[0];
+  return Status.findOne({}).gameWeek;
 };
 
 nextGameweek = function(){
-  return pLGameweeks.filter(function(a){
-    return Date.parse(a) + 86300000 > Date.now();
-  })[1];
+  var current = currentGameweek();
+  var pos = pLGameweeks.indexOf(current);
+  return pLGameweeks[pos + 1];
 };

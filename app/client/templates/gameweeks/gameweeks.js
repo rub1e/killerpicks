@@ -10,10 +10,10 @@ Template.Gameweeks.events({
 /*****************************************************************************/
 Template.Gameweeks.helpers({
   "weeksList" : function(){
+    var current = currentGameweek();
     var weeksAfterNow = pLGameweeks.filter(function(a){
-      return new Date(a) > Date.now();
+      return new Date(a) >= current;
     });
-
     return weeksAfterNow;
   }
 

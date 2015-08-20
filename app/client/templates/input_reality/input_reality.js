@@ -7,7 +7,7 @@ Template.InputReality.events({
     var gameWeek = $("#weeksDiv").children()[0].value;
     var deadlineTime = $("#gameweekDeadline").val().split(":");
 
-    var entry = {gameWeek : gameWeek, deadline : deadlineTime, matches : [], winningTeams : ["1","2","3","4","5","6","7","8","9","10"]};
+    var entry = {gameWeek : gameWeek, deadline : deadlineTime, matches : [], winningTeams : []};
 
     for (var i = 1; i < 11; i += 1){
       var homeT = "#home" + i;
@@ -26,9 +26,11 @@ Template.InputReality.events({
     });
   },
 
-  "click #disableChoice" : function(){
-    Meteor.call("disableChoice");
+  "click #setCurrentGameWeek" : function(){
+    var gameWeek = $("#lowerWeeksDiv").children()[0].value;
+    Meteor.call("setCurrentGameWeek", gameWeek);
   }
+
 });
 
 /*****************************************************************************/
@@ -36,6 +38,7 @@ Template.InputReality.events({
 /*****************************************************************************/
 Template.InputReality.helpers({
   "numberOfGames" : [1,2,3,4,5,6,7,8,9,10],
+
   "teams" : pLTeams
 });
 
