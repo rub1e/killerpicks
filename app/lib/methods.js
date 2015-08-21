@@ -72,28 +72,6 @@ Meteor.methods({
     }});
   },
 
-  "declareSingleWinner" : function(league, playerId){
-    console.log("league ", league, "player ", playerId);
-    Leagues.update({_id : league}, {$push: {
-      winners : playerId
-    }});
-    Leagues.update({_id : league}, {$set : {
-      status : "ended"
-    }});
-  },
-
-  "declareManyWinners" : function(league, playersArray){
-    console.log("league ", league, "players ", playersArray);
-    for(var i = 0; i < playersArray.length; i += 1){
-      Leagues.update({_id : league}, {$push: {
-        winners : playersArray[i].playerId
-      }});
-    }
-    Leagues.update({_id : league}, {$set : {
-      status : "ended"
-    }});
-  },
-
   "inputGames" : function(obj) {
     var deadlineDate = new Date(obj.gameWeek).setHours(obj.deadline[0], obj.deadline[1]);
     var entry = obj;
@@ -113,7 +91,7 @@ Meteor.methods({
         Meteor.call("killLosers", function(err2, res2){
           Meteor.call("announceChamps", function(err3, res3){
             Meteor.call("reOpenLeagues", function(err4, res4){
-              Meteor.call("activateLeagues")
+              Meteor.call("activateLeagues");
             });
           });
         });
@@ -134,6 +112,7 @@ Meteor.methods({
       "message" : {
         "to" : email.recipients,
         "global_merge_vars" : content.globalMergeVars,
+        "merge_vars" : content.mergeVars,
         "track_clicks" : true,
         "track_opens" : true
       }
@@ -217,6 +196,55 @@ Meteor.methods({
         }
       }
     }
+  },
+
+  "announceChamps" : function(){
+    var allActiveLeagues = Leagues.find({status : "active"}, {fields : {players : 1, round : 1}}).fetch();
+
+    for(var i = 0; i < allActiveLeagues.length; i += 1){
+      var league = allActiveLeagues[i];
+      var alivePlayersArray = league.players.filter(function(a){
+        return a.roundDied === 0;
+      });
+      if(alivePlayersArray.length === 1){
+        Meteor.call("declareSingleWinner", league._id, alivePlayersArray[0].playerId);
+      } else if (alivePlayersArray.length === 0){
+        var multiWinners = league.players.filter(function(a){
+          return a.roundDied === league.round;
+        });
+        Meteor.call("declareManyWinners", league._id, multiWinners);
+      }
+    }
+  },
+
+  "declareSingleWinner" : function(league, playerId){
+    var leagueMembers = Meteor.users.find({"profile.leaguesMemberOf" : league}).fetch();
+    var email = {template : "singleWinner", recipients : []};
+    for(var i = 0; i < leagueMembers.length; i += 1){
+      email.recipients.push(leagueMembers[i].emails[0].address);
+    }
+
+    Leagues.update({_id : league}, {$push: {
+      winners : playerId
+    }}, function(err, res){
+      Leagues.update({_id : league}, {$set : {
+        status : "ended"
+      }}, function(err1, res1){
+        Meteor.call("sendMandrillEmail", email, content);
+      });
+    });
+  },
+
+  "declareManyWinners" : function(league, playersArray){
+    console.log("league ", league, "players ", playersArray);
+    for(var i = 0; i < playersArray.length; i += 1){
+      Leagues.update({_id : league}, {$push: {
+        winners : playersArray[i].playerId
+      }});
+    }
+    Leagues.update({_id : league}, {$set : {
+      status : "ended"
+    }});
   }
 
 });

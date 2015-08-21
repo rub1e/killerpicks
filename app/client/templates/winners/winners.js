@@ -7,13 +7,13 @@ Template.Winners.events({
     e.preventDefault();
     var gameWeek = $("#gameWeekWinner").children()[0].value;
     var arrayOfWinners = $(".winnerSelect").map(function(a){
-      return this.value
+      return this.value;
     }).get();
     Meteor.call("inputWinners", gameWeek, arrayOfWinners, function(err, res){
       alert("winners added");
     });
   }
-
+  
 });
 
 /*****************************************************************************/
