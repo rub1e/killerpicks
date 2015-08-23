@@ -220,6 +220,7 @@ Meteor.methods({
   "declareSingleWinner" : function(league, playerId){
     var leagueMembers = Meteor.users.find({"profile.leaguesMemberOf" : league}).fetch();
     var email = {template : "singleWinner", recipients : []};
+    var content; //todo
     for(var i = 0; i < leagueMembers.length; i += 1){
       email.recipients.push(leagueMembers[i].emails[0].address);
     }
@@ -236,15 +237,35 @@ Meteor.methods({
   },
 
   "declareManyWinners" : function(league, playersArray){
-    console.log("league ", league, "players ", playersArray);
-    for(var i = 0; i < playersArray.length; i += 1){
-      Leagues.update({_id : league}, {$push: {
-        winners : playersArray[i].playerId
-      }});
+    var leagueMembers = Meteor.users.find({"profile.leaguesMemberOf" : league}).fetch();
+    var winnersIds = [];
+    var email = {template : "multiWinners", recipients : []};
+    var content; //todo
+    for(var i = 0; i < leagueMembers.length; i += 1){
+      email.recipients.push(leagueMembers[i].emails[0].address);
     }
-    Leagues.update({_id : league}, {$set : {
-      status : "ended"
-    }});
+    for(var j = 0; j < playersArray.length; j += 1){
+      winnersIds.push(playersArray[j].playerId);
+    }
+
+    Leagues.update({_id : league}, {$set: {
+      winners : winnersIds
+    }}, function(err, res){
+      Leagues.update({_id : league}, {$set : {
+        status : "ended"
+      }}, function(err1, res1){
+        Meteor.call("sendMandrillEmail", email, content);
+      });
+    });
+  },
+
+  "reOpenLeagues" : function(){
+    Leagues.update({status : "active"}, {$inc : {
+      round : 1
+    }}, function(err, res){
+      Status.update({},   {gameWeek : nextGameweek()})
+    });
+
   }
 
 });
