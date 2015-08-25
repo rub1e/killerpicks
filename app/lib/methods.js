@@ -207,19 +207,20 @@ Meteor.methods({
         return a.roundDied === 0;
       });
       if(alivePlayersArray.length === 1){
-        Meteor.call("declareSingleWinner", league._id, alivePlayersArray[0].playerId);
+        Meteor.call("declareSingleWinner", league, alivePlayersArray[0].playerId);
       } else if (alivePlayersArray.length === 0){
         var multiWinners = league.players.filter(function(a){
           return a.roundDied === league.round;
         });
-        Meteor.call("declareManyWinners", league._id, multiWinners);
+        Meteor.call("declareManyWinners", league, multiWinners);
       }
     }
   },
 
-  "declareSingleWinner" : function(league, playerId){
-    var leagueMembers = Meteor.users.find({"profile.leaguesMemberOf" : league}).fetch();
-    var email = {template : "singleWinner", recipients : []};
+  "declareSingleWinner" : function(leagueObj, playerId){
+    var leagueMembers = Meteor.users.find({"profile.leaguesMemberOf" : leagueObj._id}).fetch();
+    var singleTemplate = leagueObj.payment ? "singleWinnerWithFee" : "singleWinnerNoFee"
+    var email = {template : singleTemplate, recipients : []};
     var content; //todo
     for(var i = 0; i < leagueMembers.length; i += 1){
       email.recipients.push(leagueMembers[i].emails[0].address);
@@ -236,8 +237,8 @@ Meteor.methods({
     });
   },
 
-  "declareManyWinners" : function(league, playersArray){
-    var leagueMembers = Meteor.users.find({"profile.leaguesMemberOf" : league}).fetch();
+  "declareManyWinners" : function(leagueObj, playersArray){
+    var leagueMembers = Meteor.users.find({"profile.leaguesMemberOf" : leagueObj._id}).fetch();
     var winnersIds = [];
     var email = {template : "multiWinners", recipients : []};
     var content; //todo
@@ -263,9 +264,14 @@ Meteor.methods({
     Leagues.update({status : "active"}, {$inc : {
       round : 1
     }}, function(err, res){
-      Status.update({},   {gameWeek : nextGameweek()})
+      Status.update({}, {gameWeek : nextGameweek()});
     });
+  },
 
+  "activateLeagues" : function(){
+    Leagues.update({status : "pending", starting : currentGameweek()}, {$set :
+      {status: "active"}
+    }, {multi : true});
   }
 
 });
