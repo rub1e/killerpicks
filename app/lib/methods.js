@@ -219,9 +219,17 @@ Meteor.methods({
 
   "declareSingleWinner" : function(leagueObj, playerId){
     var leagueMembers = Meteor.users.find({"profile.leaguesMemberOf" : leagueObj._id}).fetch();
-    var singleTemplate = leagueObj.payment ? "singleWinnerWithFee" : "singleWinnerNoFee"
+    var singleTemplate = leagueObj.payment ? "singleWinnerWithFee" : "singleWinnerNoFee";
+    var chairman = Meteor.call("getFullName", leagueObj.players[0].playerId);
     var email = {template : singleTemplate, recipients : []};
-    var content; //todo
+    var content = {globalMergeVars : [
+                                      {name : "LEAGUENAME", content : leagueObj.leagueName},
+                                      {name : "LEAGUECHAIRMAN", content : ""},
+                                      {name : "", content : ""},
+                                      {name : "", content : ""},
+                                      {name : "", content : ""},
+                                      {name : "", content : ""},
+                                    ]};
     for(var i = 0; i < leagueMembers.length; i += 1){
       email.recipients.push(leagueMembers[i].emails[0].address);
     }
@@ -240,7 +248,8 @@ Meteor.methods({
   "declareManyWinners" : function(leagueObj, playersArray){
     var leagueMembers = Meteor.users.find({"profile.leaguesMemberOf" : leagueObj._id}).fetch();
     var winnersIds = [];
-    var email = {template : "multiWinners", recipients : []};
+    var multiTemplate = leagueObj.payment ? "multiWinnerWithFee" : "multiWinnerNoFee";
+    var email = {template : multiTemplate, recipients : []};
     var content; //todo
     for(var i = 0; i < leagueMembers.length; i += 1){
       email.recipients.push(leagueMembers[i].emails[0].address);

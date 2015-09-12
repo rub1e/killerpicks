@@ -5,7 +5,6 @@
 # but you can also edit it by hand.
 
 meteor-platform
-iron:router
 accounts-password
 twbs:bootstrap
 reactive-var
@@ -15,3 +14,4 @@ houston:admin
 wylio:mandrill
 http
 ian:accounts-ui-bootstrap-3
+iron:router
