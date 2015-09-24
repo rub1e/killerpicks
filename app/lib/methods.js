@@ -199,7 +199,8 @@ Meteor.methods({
   },
 
   "announceChamps" : function(){
-    var allActiveLeagues = Leagues.find({status : "active"}, {fields : {players : 1, round : 1}}).fetch();
+    console.log("announce");
+    var allActiveLeagues = Leagues.find({status : "active"}).fetch();
 
     for(var i = 0; i < allActiveLeagues.length; i += 1){
       var league = allActiveLeagues[i];
@@ -217,27 +218,28 @@ Meteor.methods({
     }
   },
 
-  "declareSingleWinner" : function(leagueObj, playerId){
+  "declareSingleWinner" : function(leagueObj, winnerId){
+    console.log("winner call");
     var leagueMembers = Meteor.users.find({"profile.leaguesMemberOf" : leagueObj._id}).fetch();
     var singleTemplate = leagueObj.payment ? "singleWinnerWithFee" : "singleWinnerNoFee";
-    var chairman = Meteor.call("getFullName", leagueObj.players[0].playerId);
+    var chairmanName = Meteor.call("getFullName", leagueObj.players[0].playerId);
+    var winnerName = Meteor.call("getFullName", winnerId);
+    var prizePool = leagueObj.payment * leagueMembers.length;
     var email = {template : singleTemplate, recipients : []};
     var content = {globalMergeVars : [
                                       {name : "LEAGUENAME", content : leagueObj.leagueName},
-                                      {name : "LEAGUECHAIRMAN", content : ""},
-                                      {name : "", content : ""},
-                                      {name : "", content : ""},
-                                      {name : "", content : ""},
-                                      {name : "", content : ""},
-                                    ]};
+                                      {name : "LEAGUECHAIRMAN", content : chairmanName},
+                                      {name : "WINNERNAME", content : winnerName},
+                                      {name : "LEAGUEFEE", content : leagueObj.payment},
+                                      {name : "PRIZEPOOL", content : prizePool}]};
     for(var i = 0; i < leagueMembers.length; i += 1){
-      email.recipients.push(leagueMembers[i].emails[0].address);
+      email.recipients.push({email : leagueMembers[i].emails[0].address});
     }
 
-    Leagues.update({_id : league}, {$push: {
-      winners : playerId
+    Leagues.update({_id : leagueObj._id}, {$push: {
+      winners : winnerId
     }}, function(err, res){
-      Leagues.update({_id : league}, {$set : {
+      Leagues.update({_id : leagueObj._id}, {$set : {
         status : "ended"
       }}, function(err1, res1){
         Meteor.call("sendMandrillEmail", email, content);
@@ -252,16 +254,16 @@ Meteor.methods({
     var email = {template : multiTemplate, recipients : []};
     var content; //todo
     for(var i = 0; i < leagueMembers.length; i += 1){
-      email.recipients.push(leagueMembers[i].emails[0].address);
+      email.recipients.push({email : leagueMembers[i].emails[0].address});
     }
     for(var j = 0; j < playersArray.length; j += 1){
       winnersIds.push(playersArray[j].playerId);
     }
 
-    Leagues.update({_id : league}, {$set: {
+    Leagues.update({_id : leagueObj._id}, {$set: {
       winners : winnersIds
     }}, function(err, res){
-      Leagues.update({_id : league}, {$set : {
+      Leagues.update({_id : leagueObj._id}, {$set : {
         status : "ended"
       }}, function(err1, res1){
         Meteor.call("sendMandrillEmail", email, content);
@@ -281,6 +283,10 @@ Meteor.methods({
     Leagues.update({status : "pending", starting : currentGameweek()}, {$set :
       {status: "active"}
     }, {multi : true});
+  },
+
+  "methodTest" : function(a, b){
+    console.log("league2", a);
   }
 
 });
